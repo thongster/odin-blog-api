@@ -130,12 +130,8 @@ const signup = async (req, res) => {
 };
 
 const logout = async (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    return res.redirect('/');
-  });
+  res.clearCookie('token');
+  return res.json({ message: 'Logged out successfully' });
 };
 
 export { validateSignUp, validateLogin, signup, login, logout };

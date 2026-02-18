@@ -89,23 +89,10 @@ const login = async (req, res, next) => {
         status: [{ msg: info?.message || 'Invalid email or password' }],
       });
     }
-
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      return res.json({
-        message: 'Login Successful!',
-      });
-    });
   })(req, res, next);
 };
 
 const signup = async (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.redirect('/');
-  }
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -119,23 +106,25 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     await prisma.user.create({
       data: {
+        username: username,
         email: email,
         passwordHash: hashedPassword,
+        firstName: firstName,
+        lastName: lastName,
       },
     });
-    return res.redirect('/');
+
+    // jwt here
   } catch (error) {
     if (error.code === 'P2002') {
-      return res.status(400).render('signup', {
+      return res.status(400).json({
         status: [{ msg: 'Email already in use.' }],
-        formData: req.body,
       });
     }
 
     console.error(error);
-    return res.status(500).render('signup', {
+    return res.status(500).json({
       status: [{ msg: 'Something went wrong. Please try again.' }],
-      formData: req.body,
     });
   }
 };

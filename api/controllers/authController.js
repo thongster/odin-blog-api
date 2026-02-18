@@ -108,13 +108,12 @@ const signup = async (req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).render('signup', {
+    return res.status(400).json({
       status: errors.array(),
-      formData: req.body,
     });
   }
 
-  const { email, password } = matchedData(req);
+  const { username, email, password, firstName, lastName } = matchedData(req);
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);

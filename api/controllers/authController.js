@@ -66,7 +66,7 @@ const validateLogin = [
     .notEmpty()
     .withMessage('Password is required')
     .isLength({ min: 8, max: 100 })
-    .withMessage('Password must be between 6 and 100 characters'),
+    .withMessage('Password must be between 8 and 100 characters'),
 ];
 
 const login = async (req, res, next) => {
@@ -86,7 +86,7 @@ const login = async (req, res, next) => {
     // if user does not match
     if (!user) {
       return res.status(401).json({
-        status: [{ msg: info?.message || 'Invalid email or password' }],
+        status: [{ msg: info?.message || 'Invalid username or password' }],
       });
     }
   })(req, res, next);
@@ -131,7 +131,7 @@ const signup = async (req, res) => {
 
 const logout = async (req, res, next) => {
   res.clearCookie('token');
-  return res.json({ message: 'Logged out successfully' });
+  return res.status(200).json({ message: 'Logged out successfully' });
 };
 
 export { validateSignUp, validateLogin, signup, login, logout };

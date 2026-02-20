@@ -1,6 +1,7 @@
-const prisma = require('../lib/prisma');
-const passport = require('../config/passport');
-const bcrypt = require('bcryptjs');
+import prisma from '../lib/prisma';
+import passport from '../config/passport';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 // express validator
 import { body, validationResult, matchedData } from 'express-validator';
@@ -104,7 +105,7 @@ const signup = async (req, res) => {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         username: username,
         email: email,
@@ -115,10 +116,18 @@ const signup = async (req, res) => {
     });
 
     // jwt here
+    const jwtToken = jwt.sign(
+      {
+        id: newUser.id,
+        username: newUser.username,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' },
+    );
   } catch (error) {
     if (error.code === 'P2002') {
       return res.status(400).json({
-        status: [{ msg: 'Email already in use.' }],
+        status: [{ msg: 'Username already in use.' }],
       });
     }
 

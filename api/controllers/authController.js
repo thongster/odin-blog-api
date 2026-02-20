@@ -115,19 +115,23 @@ const signup = async (req, res) => {
       },
     });
 
-    // jwt here
-    const jwtToken = jwt.sign(
-      {
-        id: newUser.id,
-        username: newUser.username,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
-    );
+    const payload = {
+      id: newUser.id,
+    };
+
+    // assign json web token
+    const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    return res.status(201).json({
+      token: jwtToken,
+    });
   } catch (error) {
+    // prisma error with uniques
     if (error.code === 'P2002') {
       return res.status(400).json({
-        status: [{ msg: 'Username already in use.' }],
+        status: [{ msg: 'Username or email already in use.' }],
       });
     }
 
@@ -136,11 +140,6 @@ const signup = async (req, res) => {
       status: [{ msg: 'Something went wrong. Please try again.' }],
     });
   }
-};
-
-const logout = async (req, res, next) => {
-  res.clearCookie('token');
-  return res.status(200).json({ message: 'Logged out successfully' });
 };
 
 export { validateSignUp, validateLogin, signup, login, logout };

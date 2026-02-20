@@ -16,6 +16,15 @@ passport.use(
         });
 
         // if user does not exist
+        if (!user) {
+          return done(null, false, { message: 'Incorrect email' });
+        }
+
+        // password match
+        const match = await bcrypt.compare(password, user.passwordHash);
+        if (!match) {
+          return done(null, false, { message: 'Incorrect password' });
+        }
 
         console.log('login success');
         return done(null, user);
@@ -33,7 +42,7 @@ passport.use(
   }),
   async (payload, done) => {
     try {
-      const user = prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: {
           id: payload.id,
         },

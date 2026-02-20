@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import { authController } from '../controllers/authController';
+import {
+  validateSignUp,
+  validateLogin,
+  signup,
+  login,
+} from '../controllers/authController.js';
 const auth = Router();
 
-auth.get(
-  '/profile',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    res.json({ user: req.user });
-  },
-);
+auth.post('/login', validateLogin, login);
 
 export { auth };

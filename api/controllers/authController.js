@@ -142,4 +142,4 @@ const signup = async (req, res) => {
   }
 };
 
-export { validateSignUp, validateLogin, signup, login, logout };
+export { validateSignUp, validateLogin, signup, login };

@@ -44,7 +44,7 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
   const post = await prisma.post.findUnique({
     where: {
-      id: req.params.postId,
+      id: Number(req.params.postId),
     },
   });
 
@@ -70,18 +70,28 @@ const updatePost = async (req, res) => {
   return res.status(200).json(updatedPost);
 };
 
-const deletePost = async (req, res) => {};
+const deletePost = async (req, res) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: Number(req.params.postId),
+    },
+  });
+
+  if (!post) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
+
+  if (post.userId != req.user.id) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  await prisma.post.delete({
+    where: {
+      id: req.params.postId,
+    },
+  });
+
+  return res.status(204).send;
+};
 
 export { getAllPosts, getPostById, createPost, updatePost, deletePost };
-
-//   id        Int      @id @default(autoincrement())
-//   title     String
-//   content   String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   published Boolean  @default(false)
-
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-
-//   comments Comment[]

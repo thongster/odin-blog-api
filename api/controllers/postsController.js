@@ -52,7 +52,7 @@ const updatePost = async (req, res) => {
     return res.status(404).json({ message: 'Post not found' });
   }
 
-  if (post.userId != req.user.id) {
+  if (post.userId != Number(req.user.id)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
 

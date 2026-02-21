@@ -50,7 +50,6 @@ const updateComment = async (req, res) => {
   const comment = await prisma.comment.findUnique({
     where: {
       id: Number(req.params.commentId),
-      postId: Number(req.params.postId),
     },
   });
 
@@ -64,7 +63,7 @@ const updateComment = async (req, res) => {
 
   const updatedComment = await prisma.comment.update({
     where: {
-      id: comment.id,
+      id: Number(comment.id),
     },
     data: {
       text: req.body.text,
@@ -74,7 +73,30 @@ const updateComment = async (req, res) => {
   return res.status(200).json(updatedComment);
 };
 
-const deleteComment = async (req, res) => {};
+const deleteComment = async (req, res) => {
+  const comment = await prisma.comment.findFirst({
+    where: {
+      id: Number(req.params.commentId),
+      postId: Number(req.params.postId),
+    },
+  });
+
+  if (!comment) {
+    return res.status(404).json({ message: 'Comment not found' });
+  }
+
+  if (comment.userId != req.user.id) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: Number(comment.id),
+    },
+  });
+
+  return res.status(204).send();
+};
 
 export {
   getAllComments,

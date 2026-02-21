@@ -6,9 +6,19 @@ const getAllPosts = async (req, res) => {
       userId: req.userId,
     },
   });
+
+  return res.json(allPosts);
 };
 
-const getPostById = async (req, res) => {};
+const getPostById = async (req, res) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: req.params.postId,
+    },
+  });
+
+  return res.json(post);
+};
 
 const createPost = async (req, res) => {};
 

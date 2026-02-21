@@ -92,7 +92,7 @@ const login = async (req, res, next) => {
     }
 
     const payload = {
-      id: user.id,
+      userId: user.id,
     };
 
     // assign json web token
@@ -129,7 +129,7 @@ const signup = async (req, res) => {
     });
 
     const payload = {
-      id: newUser.id,
+      userId: newUser.id,
     };
 
     // assign json web token

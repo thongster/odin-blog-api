@@ -12,7 +12,7 @@ const comments = Router();
 comments.get('/', getAllComments);
 
 // view comment  by id
-comments.get('/:commentId', createComment);
+comments.get('/:commentId', getCommentById);
 
 // create comment
 comments.post('/', createComment);

@@ -2,10 +2,10 @@ import { Router } from 'express';
 import { postsController } from '../controllers/postsController';
 const posts = Router();
 
-// view all posts
+// get all posts
 posts.get('/');
 
-// view post by id
+// get post by id
 posts.get('/:postId');
 
 // create post

@@ -11,9 +11,8 @@ const PORT = process.env.PORT || 3000;
 
 // middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// import routers
+// use  routers
 app.use('/', auth);
 app.use('/posts', posts);
 app.use('/posts/:postId/comments', comments);

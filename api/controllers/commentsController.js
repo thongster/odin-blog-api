@@ -1,3 +1,5 @@
+import { comments } from '../routes/comments';
+
 const prisma = require('../lib/prisma');
 
 const getAllComments = async (req, res) => {
@@ -17,7 +19,20 @@ const getAllComments = async (req, res) => {
   return res.status(200).json(postWithComments);
 };
 
-const getCommentById = async (req, res) => {};
+const getCommentById = async (req, res) => {
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: Number(req.params.commentId),
+      postId: Number(req.params.postId),
+    },
+  });
+
+  if (!comment) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
+
+  return res.status(200).json(comment);
+};
 
 const createComment = async (req, res) => {};
 

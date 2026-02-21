@@ -46,7 +46,33 @@ const createComment = async (req, res) => {
   return res.status(201).json(newComment);
 };
 
-const updateComment = async (req, res) => {};
+const updateComment = async (req, res) => {
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: Number(req.params.commentId),
+      postId: Number(req.params.postId),
+    },
+  });
+
+  if (!comment) {
+    return res.status(404).json({ message: 'Comment not found' });
+  }
+
+  if (comment.userId != Number(req.user.id)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const updatedComment = await prisma.comment.update({
+    where: {
+      id: comment.id,
+    },
+    data: {
+      text: req.body.text,
+    },
+  });
+
+  return res.status(200).json(updatedComment);
+};
 
 const deleteComment = async (req, res) => {};
 

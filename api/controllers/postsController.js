@@ -7,6 +7,10 @@ const getAllPosts = async (req, res) => {
     },
   });
 
+  if (!allPosts) {
+    return res.status(404).json({ message: 'All posts not found' });
+  }
+
   return res.status(200).json(allPosts);
 };
 
@@ -16,6 +20,10 @@ const getPostById = async (req, res) => {
       id: req.params.postId,
     },
   });
+
+  if (!post) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
 
   return res.status(200).json(post);
 };
@@ -33,7 +41,34 @@ const createPost = async (req, res) => {
   return res.status(201).json(newPost);
 };
 
-const updatePost = async (req, res) => {};
+const updatePost = async (req, res) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: req.params.postId,
+    },
+  });
+
+  if (!post) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
+
+  if (post.userId != req.user.id) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const updatedPost = await prisma.post.update({
+    where: {
+      id: req.params.postId,
+    },
+    data: {
+      title: req.body.title,
+      content: req.body.content,
+      published: req.body.published,
+    },
+  });
+
+  return res.status(200).json(updatedPost);
+};
 
 const deletePost = async (req, res) => {};
 

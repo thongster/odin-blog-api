@@ -12,9 +12,9 @@ posts.get('/posts/:postId');
 posts.post('/posts');
 
 // update post
-posts.post('/posts/:postId');
+posts.put('/posts/:postId');
 
 // delete post
-posts.post('/posts/:postId');
+posts.delete('/posts/:postId');
 
 export { posts };

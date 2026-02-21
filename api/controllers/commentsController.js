@@ -34,7 +34,17 @@ const getCommentById = async (req, res) => {
   return res.status(200).json(comment);
 };
 
-const createComment = async (req, res) => {};
+const createComment = async (req, res) => {
+  const newComment = await prisma.comment.create({
+    data: {
+      text: req.body.text,
+      userId: req.user.id,
+      postId: Number(req.params.postId),
+    },
+  });
+
+  return res.status(201).json(newComment);
+};
 
 const updateComment = async (req, res) => {};
 

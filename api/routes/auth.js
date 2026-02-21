@@ -8,5 +8,6 @@ import {
 const auth = Router();
 
 auth.post('/login', validateLogin, login);
+auth.post('/signup', validateSignUp, signup);
 
 export { auth };

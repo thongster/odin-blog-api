@@ -1,20 +1,26 @@
 import { Router } from 'express';
-import { commentsController } from '../controllers/commentsController.js';
+import {
+  getAllComments,
+  getCommentById,
+  createComment,
+  updateComment,
+  deleteComment,
+} from '../controllers/commentsController.js';
 const comments = Router();
 
 // view all comments
-comments.get('/');
+comments.get('/', getAllComments);
 
 // view comment  by id
-comments.get('/:commentId');
+comments.get('/:commentId', createComment);
 
 // create comment
-comments.post('/');
+comments.post('/', createComment);
 
 // update comment
-comments.put('/:commentId');
+comments.put('/:commentId', updateComment);
 
 // delete comment
-comments.delete('/:commentId');
+comments.delete('/:commentId', deleteComment);
 
 export { comments };

@@ -91,7 +91,7 @@ const deletePost = async (req, res) => {
     },
   });
 
-  return res.status(204).send;
+  return res.status(204).send();
 };
 
 export { getAllPosts, getPostById, createPost, updatePost, deletePost };

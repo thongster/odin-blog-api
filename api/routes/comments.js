@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { passport } from './config/passport';
 import {
   getAllComments,
   getCommentById,
@@ -15,12 +16,24 @@ comments.get('/', getAllComments);
 comments.get('/:commentId', getCommentById);
 
 // create comment
-comments.post('/', createComment);
+comments.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  createComment,
+);
 
 // update comment
-comments.put('/:commentId', updateComment);
+comments.put(
+  '/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  updateComment,
+);
 
 // delete comment
-comments.delete('/:commentId', deleteComment);
+comments.delete(
+  '/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  deleteComment,
+);
 
 export { comments };

@@ -1,6 +1,10 @@
 import 'dotenv/config';
 import prisma from './prisma/lib/prisma.js';
 import express from 'express';
+import { passport } from './config/passport';
+import { auth } from './routes/auth.js';
+import { posts } from './routes/posts.js';
+import { comments } from './routes/comments.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,10 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // import routers
-const indexRouter = require('./routes/indexRouter');
-
-// passport
-const passport = require('./config/passport');
+app.use('/', auth);
+app.use('/', posts);
+app.use('/', comments);
 
 // error handling
 app.use((req, res) => {

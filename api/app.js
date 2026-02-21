@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // import routers
 app.use('/', auth);
-app.use('/', posts);
-app.use('/', comments);
+app.use('/posts', posts);
+app.use('/posts/:postId/comments', comments);
 
 // error handling
 app.use((req, res) => {

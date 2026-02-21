@@ -3,18 +3,18 @@ import { commentsController } from '../controllers/commentsController.js';
 const comments = Router();
 
 // view all comments
-comments.get('/posts/:postId/comments');
+comments.get('/');
 
 // view comment  by id
-comments.get('/posts/:postId/comments/:commentId');
+comments.get('/:commentId');
 
 // create comment
-comments.post('/posts/:postId/comments/');
+comments.post('/');
 
 // update comment
-comments.put('/posts/:postId/comments/:commentId');
+comments.put('/:commentId');
 
 // delete comment
-comments.delete('/posts/:postId/comments/:commentId');
+comments.delete('/:commentId');
 
 export { comments };

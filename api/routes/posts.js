@@ -3,18 +3,18 @@ import { postsController } from '../controllers/postsController';
 const posts = Router();
 
 // view all posts
-posts.get('/posts/');
+posts.get('/');
 
 // view post by id
-posts.get('/posts/:postId');
+posts.get('/:postId');
 
 // create post
-posts.post('/posts');
+posts.post('/');
 
 // update post
-posts.put('/posts/:postId');
+posts.put('/:postId');
 
 // delete post
-posts.delete('/posts/:postId');
+posts.delete('/:postId');
 
 export { posts };

@@ -90,6 +90,19 @@ const login = async (req, res, next) => {
         status: [{ msg: info?.message || 'Invalid username or password' }],
       });
     }
+
+    const payload = {
+      id: user.id,
+    };
+
+    // assign json web token
+    const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    return res.status(200).json({
+      token: jwtToken,
+    });
   })(req, res, next);
 };
 

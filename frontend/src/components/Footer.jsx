@@ -7,9 +7,7 @@ const Footer = () => {
       <div className={styles.credit}>
         <p>
           View{' '}
-          <a href="https://github.com/thongster/odin-shopping-cart">
-            Source Code
-          </a>
+          <a href="https://github.com/thongster/odin-blog-api">Source Code</a>
         </p>
       </div>
     </footer>

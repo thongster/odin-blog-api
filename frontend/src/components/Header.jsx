@@ -13,8 +13,6 @@ export default function Header() {
 
         <Nav />
       </div>
-
-      <div className={styles.divider} />
     </header>
   );
 }

@@ -1,24 +1,27 @@
 .nav {
   display: flex;
   gap: 28px;
+  align-items: center;
 }
 
-.nav a {
+.link {
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 400;
   color: #1f1f1f;
   opacity: 0.7;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.nav a:hover {
+.link:hover {
   opacity: 1;
 }
 
-.nav a.active {
-  opacity: 1;
+.active {
+  text-decoration: none;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: #1f1f1f;
   border-bottom: 2px solid #c84c24;
   padding-bottom: 4px;
 }

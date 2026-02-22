@@ -1,7 +1,13 @@
-.container {
-  flex: 1;
+#root {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
+}
+
+.container {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 48px 24px;
 }

@@ -1,7 +1,7 @@
 import styles from './Auth.module.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const signup = () => {
+export default function Signup() {
   const baseUrl = 'http://localhost:3000/';
 
   const [error, setError] = useState(null);
@@ -34,45 +34,79 @@ const signup = () => {
 
       const data = await response.json();
 
+      if (!response.ok) {
+        data.status?.[0]?.msg || data?.message || 'Signup failed';
+      }
+
+      // save jwt token
       localStorage.setItem('token', data.token);
+
       console.log('Signup successful');
     } catch (err) {
       setError(err.message);
     }
   };
-};
 
-export default function Signup() {
   return (
     <div className={styles.authWrapper}>
-      <form className={styles.form} onSubmit={signup}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2>Create Account</h2>
 
         <div className={styles.row}>
           <div className={styles.field}>
             <label htmlFor="firstName">First Name</label>
-            <input id="firstName" name="firstName" type="text" required />
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              required
+              onChange={handleChange}
+            />
           </div>
 
           <div className={styles.field}>
             <label htmlFor="lastName">Last Name</label>
-            <input id="lastName" name="lastName" type="text" required />
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              required
+              onChange={handleChange}
+            />
           </div>
         </div>
 
         <div className={styles.field}>
           <label htmlFor="username">Username</label>
-          <input id="username" name="username" type="text" required />
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            onChange={handleChange}
+          />
         </div>
 
         <div className={styles.field}>
           <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" required />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            onChange={handleChange}
+          />
         </div>
 
         <div className={styles.field}>
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" required />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            onChange={handleChange}
+          />
         </div>
 
         <div className={styles.field}>
@@ -82,6 +116,7 @@ export default function Signup() {
             name="confirmPassword"
             type="password"
             required
+            onChange={handleChange}
           />
         </div>
 

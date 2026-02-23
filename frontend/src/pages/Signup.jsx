@@ -1,9 +1,51 @@
 import styles from './Auth.module.css';
+import { useState, useEffect } from 'react';
+
+const signup = () => {
+  const baseUrl = 'http://localhost:3000/';
+
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${baseUrl}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      localStorage.setItem('token', data.token);
+      console.log('Signup successful');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+};
 
 export default function Signup() {
   return (
     <div className={styles.authWrapper}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={signup}>
         <h2>Create Account</h2>
 
         <div className={styles.row}>

@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import prisma from './prisma/lib/prisma.js';
+import { prisma } from './prisma/lib/prisma.js';
 import express from 'express';
-import { passport } from './config/passport';
+// import { passport } from './config/passport';
 import { auth } from './routes/auth.js';
 import { posts } from './routes/posts.js';
 import { comments } from './routes/comments.js';

@@ -1,4 +1,4 @@
-const prisma = require('../lib/prisma');
+import { prisma } from '../prisma/lib/prisma.js';
 
 const getAllPosts = async (req, res) => {
   const allPosts = await prisma.post.findMany({

@@ -1,6 +1,4 @@
-import { comments } from '../routes/comments';
-
-const prisma = require('../lib/prisma');
+import { prisma } from '../prisma/lib/prisma.js';
 
 const getAllComments = async (req, res) => {
   const postWithComments = await prisma.post.findUnique({

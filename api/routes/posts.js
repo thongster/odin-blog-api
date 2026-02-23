@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { passport } from './config/passport';
+import { passport } from '../config/passport.js';
 import {
   getAllPosts,
   getPostById,
   createPost,
   updatePost,
   deletePost,
-} from '../controllers/postsController';
+} from '../controllers/postsController.js';
 const posts = Router();
 
 // get all posts

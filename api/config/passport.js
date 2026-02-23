@@ -1,9 +1,12 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
-import prisma from '../prisma/lib/prisma.js';
-import { JwtStrategy, ExtractJwt } from 'passport-local';
+import { prisma } from '../prisma/lib/prisma.js';
+import passportJWT from 'passport-jwt';
 import 'dotenv/config';
+
+const JwtStrategy = passportJWT.Strategy;
+const ExtractJwt = passportJWT.ExtractJwt;
 
 passport.use(
   new LocalStrategy(
@@ -35,28 +38,30 @@ passport.use(
 );
 
 passport.use(
-  new JwtStrategy({
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET,
-  }),
-  async (payload, done) => {
-    try {
-      const user = await prisma.user.findUnique({
-        where: {
-          id: payload.id,
-        },
-      });
+  new JwtStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.JWT_SECRET,
+    },
+    async (payload, done) => {
+      try {
+        const user = await prisma.user.findUnique({
+          where: {
+            id: payload.id,
+          },
+        });
 
-      // if user no longer exist
-      if (!user) {
-        return done(null, false);
+        // if user no longer exist
+        if (!user) {
+          return done(null, false);
+        }
+
+        return done(null, user);
+      } catch (err) {
+        return done(err);
       }
-
-      return done(null, user);
-    } catch (err) {
-      return done(err);
-    }
-  },
+    },
+  ),
 );
 
 export { passport };

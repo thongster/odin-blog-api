@@ -1,5 +1,5 @@
-import prisma from '../lib/prisma';
-import passport from '../config/passport';
+import { prisma } from '../prisma/lib/prisma.js';
+import { passport } from '../config/passport.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

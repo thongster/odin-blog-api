@@ -30,7 +30,7 @@ const validateSignUp = [
     .trim()
     .notEmpty()
     .withMessage('Password is required')
-    .isLength({ min: 8, max: 100 })
+    .isLength({ min: 6, max: 100 })
     .withMessage('Password must be between 6 and 100 characters'),
 
   body('confirmPassword')

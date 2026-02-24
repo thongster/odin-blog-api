@@ -5,7 +5,7 @@ import express from 'express';
 import { auth } from './routes/auth.js';
 import { posts } from './routes/posts.js';
 import { comments } from './routes/comments.js';
-import { cors } from 'cors';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

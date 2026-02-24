@@ -1,10 +1,20 @@
 import styles from './Auth.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Signup() {
+  const { token, login } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
+
+  // redirect if jwt already exists
+  // useEffect hook to run redirect as a side effect when token changes
+  useEffect(() => {
+    if (token) {
+      navigate('/', { replace: true });
+    }
+  }, [token, navigate]);
 
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -43,7 +53,7 @@ export default function Signup() {
       }
 
       // save jwt token
-      localStorage.setItem('token', data.token);
+      login(data.token);
 
       // navigate to home page
       navigate('/');

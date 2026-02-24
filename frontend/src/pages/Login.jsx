@@ -29,9 +29,40 @@ export default function Login() {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${baseUrl}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.status?.[0]?.msg || data?.message || 'Login failed',
+        );
+      }
+
+      // save jwt token
+      login(data.token);
+
+      // navigate to home page
+      navigate('/');
+      console.log('Login successful');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className={styles.authWrapper}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2>Login</h2>
 
         <div className={styles.field}>

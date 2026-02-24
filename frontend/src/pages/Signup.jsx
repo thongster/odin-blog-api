@@ -1,8 +1,10 @@
 import styles from './Auth.module.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  const baseUrl = 'http://localhost:3000/';
+  const navigate = useNavigate();
+  const baseUrl = 'http://localhost:3000';
 
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -35,12 +37,16 @@ export default function Signup() {
       const data = await response.json();
 
       if (!response.ok) {
-        data.status?.[0]?.msg || data?.message || 'Signup failed';
+        throw new Error(
+          data.status?.[0]?.msg || data?.message || 'Signup failed',
+        );
       }
 
       // save jwt token
       localStorage.setItem('token', data.token);
 
+      // navigate to home page
+      navigate('/');
       console.log('Signup successful');
     } catch (err) {
       setError(err.message);
@@ -51,6 +57,7 @@ export default function Signup() {
     <div className={styles.authWrapper}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h2>Create Account</h2>
+        {error && <p className={styles.error}>{error}</p>}
 
         <div className={styles.row}>
           <div className={styles.field}>

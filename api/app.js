@@ -5,12 +5,22 @@ import express from 'express';
 import { auth } from './routes/auth.js';
 import { posts } from './routes/posts.js';
 import { comments } from './routes/comments.js';
+import { cors } from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // middleware
 app.use(express.json());
+
+// allow cross origin
+app.use(
+  cors({
+    origin: process.env.FRONTEND_ORIGIN,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  }),
+);
 
 // use  routers
 app.use('/', auth);

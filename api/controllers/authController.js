@@ -66,8 +66,8 @@ const validateLogin = [
   body('password')
     .notEmpty()
     .withMessage('Password is required')
-    .isLength({ min: 8, max: 100 })
-    .withMessage('Password must be between 8 and 100 characters'),
+    .isLength({ min: 6, max: 100 })
+    .withMessage('Password must be between 6 and 100 characters'),
 ];
 
 const login = async (req, res, next) => {

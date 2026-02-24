@@ -19,11 +19,15 @@ export default function Login() {
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
-    firstName: '',
-    lastName: '',
   });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className={styles.authWrapper}>
@@ -32,12 +36,24 @@ export default function Login() {
 
         <div className={styles.field}>
           <label htmlFor="username">Username</label>
-          <input id="username" name="username" type="text" required />
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            onChange={handleChange}
+          />
         </div>
 
         <div className={styles.field}>
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" required />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            onChange={handleChange}
+          />
         </div>
 
         <button type="submit" className={styles.button}>

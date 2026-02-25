@@ -117,10 +117,11 @@ const signup = async (req, res) => {
   const { username, email, password, firstName, lastName } = matchedData(req);
 
   try {
+    const normalizedUsername = username.toLowerCase();
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
       data: {
-        username: username,
+        username: normalizedUsername,
         email: email,
         passwordHash: hashedPassword,
         firstName: firstName,

@@ -13,13 +13,15 @@ passport.use(
     { usernameField: 'username' },
     async (username, password, done) => {
       try {
+        const normalizedUsername = username.toLowerCase();
+
         const user = await prisma.user.findUnique({
-          where: { username: username },
+          where: { username: normalizedUsername },
         });
 
         // if user does not exist
         if (!user) {
-          return done(null, false, { message: 'Incorrect email' });
+          return done(null, false, { message: 'Incorrect user' });
         }
 
         // password match

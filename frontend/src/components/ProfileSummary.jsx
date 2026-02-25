@@ -4,8 +4,8 @@ export default function ProfileSummary({ user }) {
   return (
     <div className={styles.card}>
       <div className={styles.avatar}>
-        {user.firstName[0]}
-        {user.lastName[0]}
+        {user.firstName}
+        {user.lastName}
       </div>
 
       <h2 className={styles.name}>

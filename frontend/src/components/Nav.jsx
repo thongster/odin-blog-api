@@ -18,7 +18,6 @@ const Nav = () => {
         to="/"
         end
         className={({ isActive }) => (isActive ? styles.active : styles.link)}
-        onClick={console.log(token)}
       >
         Home
       </NavLink>

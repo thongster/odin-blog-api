@@ -1,5 +1,5 @@
 import styles from './Profile.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import ProfileSummary from '../components/ProfileSummary';
 // import PostCard from './PostCard';
@@ -8,6 +8,7 @@ export default function Profile() {
   const { token } = useAuth();
 
   const baseUrl = 'http://localhost:3000';
+  const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
   // api call to pull user data
@@ -18,9 +19,9 @@ export default function Profile() {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
         },
       });
+      console.log('Response status:', response.status);
 
       const data = await response.json();
 
@@ -29,10 +30,19 @@ export default function Profile() {
           data.status?.[0]?.msg || data?.message || 'Profile not found',
         );
       }
+
+      console.log(data);
+      setUser(data);
     } catch (err) {
       setError(err.message);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      getProfile();
+    }
+  }, [token]);
 
   //   const posts = [
   //     {
@@ -49,7 +59,7 @@ export default function Profile() {
   return (
     <div className={styles.profilePage}>
       <aside className={styles.sidebar}>
-        <ProfileSummary user={getProfile()} />
+        {user ? <ProfileSummary user={user} /> : <p>Loading profile...</p>}
       </aside>
 
       <main className={styles.mainContent}>

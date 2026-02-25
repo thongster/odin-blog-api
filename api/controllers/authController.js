@@ -92,7 +92,7 @@ const login = async (req, res, next) => {
     }
 
     const payload = {
-      userId: user.id,
+      id: user.id,
     };
 
     // assign json web token
@@ -130,7 +130,7 @@ const signup = async (req, res) => {
     });
 
     const payload = {
-      userId: newUser.id,
+      id: newUser.id,
     };
 
     // assign json web token
@@ -157,8 +157,9 @@ const signup = async (req, res) => {
 };
 
 // get profile
-const profile = async (res, req) => {
-  return res.json(req, user);
+const profile = async (req, res) => {
+  console.log('req.user:', req.user);
+  return res.json(req.user);
 };
 
 export { validateSignUp, validateLogin, signup, login, profile };

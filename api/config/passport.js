@@ -49,10 +49,11 @@ passport.use(
       try {
         const user = await prisma.user.findUnique({
           where: {
-            id: payload.id,
+            id: Number(payload.id),
           },
         });
 
+        console.log('Found user:', user);
         // if user no longer exist
         if (!user) {
           return done(null, false);
@@ -60,6 +61,7 @@ passport.use(
 
         return done(null, user);
       } catch (err) {
+        console.log('JWT STRATEGY ERROR:', err);
         return done(err);
       }
     },

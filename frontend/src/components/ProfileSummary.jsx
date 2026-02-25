@@ -1,4 +1,4 @@
-// import styles from './ProfileSummary.module.css';
+import styles from './ProfileSummary.module.css';
 
 export default function ProfileSummary({ user }) {
   return (

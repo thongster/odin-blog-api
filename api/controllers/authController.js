@@ -156,4 +156,9 @@ const signup = async (req, res) => {
   }
 };
 
-export { validateSignUp, validateLogin, signup, login };
+// get profile
+const me = async (res, req) => {
+  return res.json(req, user);
+};
+
+export { validateSignUp, validateLogin, signup, login, me };

@@ -14,9 +14,9 @@ const routes = [
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'profile/:userId', element: <Profile /> },
+      { path: 'profile', element: <Profile /> },
       { path: 'create', element: <CreatePost /> },
-      { path: 'edit/:postId', element: <EditPost /> },
+      { path: 'edit', element: <EditPost /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
     ],

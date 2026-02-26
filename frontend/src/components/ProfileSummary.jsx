@@ -1,6 +1,6 @@
 import styles from './ProfileSummary.module.css';
 
-export default function ProfileSummary({ user }) {
+const ProfileSummary = ({ user }) => {
   return (
     <div className={styles.card}>
       <div className={styles.avatar}>
@@ -20,4 +20,6 @@ export default function ProfileSummary({ user }) {
       </div>
     </div>
   );
-}
+};
+
+export { ProfileSummary };

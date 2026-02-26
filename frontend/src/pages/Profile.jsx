@@ -2,8 +2,8 @@ import styles from './Profile.module.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import ProfileSummary from '../components/ProfileSummary';
-// import PostCard from './PostCard';
+import { ProfileSummary } from '../components/ProfileSummary';
+import { PostCard } from '../components/PostCard';
 
 export default function Profile() {
   const { token, logout } = useAuth();
@@ -56,17 +56,17 @@ export default function Profile() {
     }
   }, [token]);
 
-  //   const posts = [
-  //     {
-  //       id: 1,
-  //       title: 'My First Post',
-  //       content: 'Lorem ipsum dolor sit amet...',
-  //       comments: [
-  //         { id: 1, text: 'Nice post!' },
-  //         { id: 2, text: 'Great read.' },
-  //       ],
-  //     },
-  //   ];
+  const posts = [
+    {
+      id: 1,
+      title: 'My First Post',
+      content: 'Lorem ipsum dolor sit amet...',
+      comments: [
+        { id: 1, text: 'Nice post!' },
+        { id: 2, text: 'Great read.' },
+      ],
+    },
+  ];
 
   return (
     <div className={styles.profilePage}>
@@ -78,9 +78,11 @@ export default function Profile() {
         <h2 className={styles.sectionTitle}>Your Posts</h2>
 
         <div className={styles.postsGrid}>
-          {/* {posts.map(post => (
-            <PostCard key={post.id} post={post} />
-          ))} */}
+          {posts ? (
+            posts.map((post) => <PostCard key={post.id} post={post} />)
+          ) : (
+            <p>No posts</p>
+          )}
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
-  const { token, login } = useAuth();
+  const { token, login, logout } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
 
@@ -42,6 +42,11 @@ export default function Login() {
       });
 
       const data = await response.json();
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
 
       if (!response.ok) {
         throw new Error(

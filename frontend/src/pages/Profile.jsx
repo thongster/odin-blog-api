@@ -1,18 +1,25 @@
 import styles from './Profile.module.css';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import ProfileSummary from '../components/ProfileSummary';
 // import PostCard from './PostCard';
 
 export default function Profile() {
-  const { token } = useAuth();
-
+  const { token, logout } = useAuth();
+  const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  // api call to pull user data
+  // if no token in localstorage, redirect to home
+  useEffect(() => {
+    if (!token) {
+      navigate('/', { replace: true });
+    }
+  }, [token, navigate]);
 
+  // api call to pull user data
   const getProfile = async () => {
     try {
       const response = await fetch(`${baseUrl}/profile`, {
@@ -24,6 +31,11 @@ export default function Profile() {
       console.log('Response status:', response.status);
 
       const data = await response.json();
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
 
       if (!response.ok) {
         throw new Error(
@@ -58,11 +70,11 @@ export default function Profile() {
 
   return (
     <div className={styles.profilePage}>
-      <aside className={styles.sidebar}>
+      <div className={styles.sidebar}>
         {user ? <ProfileSummary user={user} /> : <p>Loading profile...</p>}
-      </aside>
+      </div>
 
-      <main className={styles.mainContent}>
+      <div className={styles.mainContent}>
         <h2 className={styles.sectionTitle}>Your Posts</h2>
 
         <div className={styles.postsGrid}>
@@ -70,7 +82,7 @@ export default function Profile() {
             <PostCard key={post.id} post={post} />
           ))} */}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

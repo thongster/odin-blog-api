@@ -156,10 +156,4 @@ const signup = async (req, res) => {
   }
 };
 
-// get profile
-const profile = async (req, res) => {
-  console.log('req.user:', req.user);
-  return res.json(req.user);
-};
-
-export { validateSignUp, validateLogin, signup, login, profile };
+export { validateSignUp, validateLogin, signup, login };

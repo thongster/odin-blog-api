@@ -17,6 +17,9 @@ const getMyPostsWithComments = async (req, res) => {
     include: {
       comments: true,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 
   if (allPosts.length === 0) {

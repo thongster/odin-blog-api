@@ -3,6 +3,7 @@ import { prisma } from './prisma/lib/prisma.js';
 import express from 'express';
 // import { passport } from './config/passport';
 import { auth } from './routes/auth.js';
+import { profile } from './routes/auth.js';
 import { posts } from './routes/posts.js';
 import { comments } from './routes/comments.js';
 import cors from 'cors';
@@ -24,6 +25,7 @@ app.use(
 
 // use  routers
 app.use('/', auth);
+app.use('/', profile);
 app.use('/posts', posts);
 app.use('/posts/:postId/comments', comments);
 

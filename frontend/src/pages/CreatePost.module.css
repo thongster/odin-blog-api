@@ -1,0 +1,7 @@
+.createPostPage {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}

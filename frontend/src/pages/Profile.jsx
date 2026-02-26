@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { ProfileSummary } from '../components/ProfileSummary';
 import { PostCard } from '../components/PostCard';
 
-export default function Profile() {
+const Profile = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
@@ -109,4 +109,6 @@ export default function Profile() {
       </div>
     </div>
   );
-}
+};
+
+export { Profile };

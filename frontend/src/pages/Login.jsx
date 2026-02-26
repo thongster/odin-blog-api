@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-export default function Login() {
+const Login = () => {
   const { token, login, logout } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
@@ -99,4 +99,6 @@ export default function Login() {
       </form>
     </div>
   );
-}
+};
+
+export { Login };

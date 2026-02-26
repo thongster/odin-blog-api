@@ -1,5 +1,7 @@
+import styles from './CreatePost.module.css';
+
 const CreatePost = () => {
-  return <div></div>;
+  return <div className={styles.createPostPage}>Test</div>;
 };
 
 export { CreatePost };

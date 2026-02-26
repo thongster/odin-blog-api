@@ -10,6 +10,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
 
   // if no token in localstorage, redirect to home
@@ -28,7 +29,6 @@ export default function Profile() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Response status:', response.status);
 
       const data = await response.json();
 
@@ -50,23 +50,42 @@ export default function Profile() {
     }
   };
 
+  const getPosts = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/profile/posts`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.status?.[0]?.msg || data?.message || 'Posts not found',
+        );
+      }
+
+      console.log(data);
+      setPosts(data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  // render profile when token changes
   useEffect(() => {
     if (token) {
       getProfile();
+      getPosts;
     }
   }, [token]);
-
-  const posts = [
-    {
-      id: 1,
-      title: 'My First Post',
-      content: 'Lorem ipsum dolor sit amet...',
-      comments: [
-        { id: 1, text: 'Nice post!' },
-        { id: 2, text: 'Great read.' },
-      ],
-    },
-  ];
 
   return (
     <div className={styles.profilePage}>
@@ -79,7 +98,9 @@ export default function Profile() {
 
         <div className={styles.postsGrid}>
           {posts ? (
-            posts.map((post) => <PostCard key={post.id} post={post} />)
+            posts.map((post) => (
+              <PostCard key={post.id} post={post} comments={post.comments} />
+            ))
           ) : (
             <p>No posts</p>
           )}

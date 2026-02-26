@@ -1,3 +1,5 @@
-export default function CreatePost() {
-  return <></>;
-}
+const CreatePost = () => {
+  return <div></div>;
+};
+
+export { CreatePost };

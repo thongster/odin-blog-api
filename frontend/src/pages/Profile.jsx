@@ -30,12 +30,13 @@ export default function Profile() {
         },
       });
 
-      const data = await response.json();
-
       // logout if token expired
       if (response.status === 401) {
+        console.log('Error 401');
         logout();
       }
+
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(
@@ -59,12 +60,12 @@ export default function Profile() {
         },
       });
 
-      const data = await response.json();
-
       // logout if token expired
       if (response.status === 401) {
         logout();
       }
+
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(

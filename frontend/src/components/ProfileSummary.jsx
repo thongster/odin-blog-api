@@ -3,16 +3,12 @@ import styles from './ProfileSummary.module.css';
 const ProfileSummary = ({ user }) => {
   return (
     <div className={styles.card}>
-      <div className={styles.avatar}>
-        {user.firstName}
-        {user.lastName}
+      <div className={styles.who}>
+        <h2 className={styles.name}>
+          {user.firstName} {user.lastName}
+        </h2>
+        <p className={styles.username}>@{user.username}</p>
       </div>
-
-      <h2 className={styles.name}>
-        {user.firstName} {user.lastName}
-      </h2>
-
-      <p className={styles.username}>@{user.username}</p>
 
       <div className={styles.info}>
         <span>Email</span>

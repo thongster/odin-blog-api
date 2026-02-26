@@ -9,4 +9,21 @@ const getProfile = async (req, res) => {
   return res.json(req.user);
 };
 
-export { getProfile };
+const getMyPostsWithComments = async (req, res) => {
+  const allPosts = await prisma.post.findMany({
+    where: {
+      userId: req.user.id,
+    },
+    include: {
+      comments: true,
+    },
+  });
+
+  if (allPosts.length === 0) {
+    return res.status(404).json({ message: 'All posts not found' });
+  }
+
+  return res.json(allPosts);
+};
+
+export { getProfile, getMyPostsWithComments };

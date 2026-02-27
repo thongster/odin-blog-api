@@ -19,8 +19,10 @@ const CreatePost = () => {
       const response = await fetch(`${baseUrl}/posts`, {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ title, content, published }),
       });
 
       const data = await response.json();
@@ -32,16 +34,13 @@ const CreatePost = () => {
 
       if (!response.ok) {
         throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Signup failed',
+          data.status?.[0]?.msg || data?.message || 'Failed to create post',
         );
       }
 
-      // save jwt token
-      login(data.token);
-
       // navigate to home page
       navigate('/');
-      console.log('Signup successful');
+      console.log('Post successfully created');
     } catch (err) {
       setError(err.message);
     }

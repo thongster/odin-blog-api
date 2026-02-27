@@ -71,7 +71,7 @@ const Profile = () => {
         return;
       }
 
-      console.log(data);
+      console.log(`All Posts: ${data}`);
       setPosts(data);
     } catch (err) {
       setError(err.message);
@@ -82,7 +82,7 @@ const Profile = () => {
   useEffect(() => {
     if (token) {
       getProfile();
-      getPosts;
+      getPosts();
     }
   }, [token]);
 

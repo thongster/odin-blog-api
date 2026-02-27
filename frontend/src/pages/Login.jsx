@@ -43,15 +43,9 @@ const Login = () => {
 
       const data = await response.json();
 
-      // logout if token expired
-      if (response.status === 401) {
-        logout();
-      }
-
       if (!response.ok) {
-        throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Login failed',
-        );
+        setError(data.status?.[0]?.msg || data?.message || 'Login failed');
+        return;
       }
 
       // save jwt token

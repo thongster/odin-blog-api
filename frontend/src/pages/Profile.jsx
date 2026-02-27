@@ -39,9 +39,8 @@ const Profile = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Profile not found',
-        );
+        setError(data.status?.[0]?.msg || data?.message || 'Profile not found');
+        return;
       }
 
       console.log(data);
@@ -68,9 +67,8 @@ const Profile = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Posts not found',
-        );
+        setError(data.status?.[0]?.msg || data?.message || 'Posts not found');
+        return;
       }
 
       console.log(data);
@@ -96,7 +94,7 @@ const Profile = () => {
 
       <div className={styles.mainContent}>
         <h2 className={styles.sectionTitle}>Your Posts</h2>
-
+        {error && <p className={styles.error}>{error}</p>}
         <div className={styles.postsGrid}>
           {posts ? (
             posts.map((post) => (

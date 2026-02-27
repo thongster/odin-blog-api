@@ -52,7 +52,7 @@ const Signup = () => {
       //   }
 
       if (!response.ok) {
-        setError(data.status?.[0]?.msg || data?.message || 'Login failed');
+        setError(data.status?.[0]?.msg || data?.message || 'Signup failed');
         return;
       }
 

@@ -51,7 +51,7 @@ const CreatePost = () => {
     <div className={styles.createPostPage}>
       <div className={styles.container}>
         <h2 className={styles.sectionTitle}>Create New Post</h2>
-
+        {error && <p className={styles.error}>{error}</p>}
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>
             <label htmlFor="title">Title</label>

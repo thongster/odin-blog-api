@@ -1,0 +1,35 @@
+.footer {
+  margin-top: 64px;
+  padding: 32px 24px;
+  border-top: 1px solid rgba(31, 31, 31, 0.08);
+  background-color: #f5f2eb;
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  flex-wrap: wrap;
+}
+
+.credit,
+.copy {
+  font-size: 0.9rem;
+  color: #5c5c5c;
+}
+
+.credit a {
+  text-decoration: none;
+  color: #1f1f1f;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.credit a:hover {
+  opacity: 0.7;
+}

@@ -3,7 +3,7 @@ import { prisma } from '../prisma/lib/prisma.js';
 const getAllPosts = async (req, res) => {
   const allPosts = await prisma.post.findMany({
     where: {
-      userId: req.user.id,
+      userId: Number(req.user.id),
     },
   });
 
@@ -17,7 +17,7 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   const post = await prisma.post.findUnique({
     where: {
-      id: req.params.postId,
+      id: Number(req.params.postId),
     },
   });
 

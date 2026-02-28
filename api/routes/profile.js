@@ -14,7 +14,7 @@ profile.get(
   getPosts,
 );
 profile.get(
-  '/posts',
+  '/postswithcomments',
   passport.authenticate('jwt', { session: false }),
   getMyPostsWithComments,
 );

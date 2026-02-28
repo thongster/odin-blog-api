@@ -87,7 +87,7 @@ const CreatePost = () => {
           </div>
 
           <button type="submit" className={styles.button}>
-            Create Post
+            {published ? 'Create Post' : 'Save Draft'}
           </button>
         </form>
       </div>

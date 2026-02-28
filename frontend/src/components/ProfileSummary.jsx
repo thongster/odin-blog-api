@@ -7,12 +7,22 @@ const ProfileSummary = ({ user }) => {
         <h2 className={styles.name}>
           {user.firstName} {user.lastName}
         </h2>
+      </div>
+
+      <div className={styles.info}>
+        <span>Username</span>
         <p className={styles.username}>@{user.username}</p>
       </div>
 
       <div className={styles.info}>
         <span>Email</span>
         <p>{user.email}</p>
+      </div>
+
+      <div className={styles.info}>
+        <span>Activity</span>
+        <p>Posts:</p>
+        <p>Comments:</p>
       </div>
     </div>
   );

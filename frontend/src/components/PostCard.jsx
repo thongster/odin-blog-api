@@ -1,18 +1,49 @@
-const PostCard = ({ post, comments }) => {
+import styles from './PostCard.module.css';
+
+const PostCard = ({ post }) => {
+  // destructure post object
+  const {
+    title,
+    content,
+    createdAt,
+    updatedAt,
+    published,
+    comments = [],
+  } = post;
+
   return (
-    <div>
-      <p>{post.title}</p>
-      <p>{post.content}</p>
-      <p>{post.createdAt}</p>
-      <p>{post.updatedAt}</p>
-      <p>{post.published}</p>
-      {comments.map((comment) => (
-        <div>
-          <p>{comment.text}</p>
-          <p>{comment.createdAt}</p>
-          <p>{comment.updatedAt}</p>
+    <div className={styles.card}>
+      <div className={styles.header}>
+        <h3 className={styles.title}>{title}</h3>
+      </div>
+
+      <p className={styles.content}>{content}</p>
+
+      <div className={styles.meta}>
+        <p
+          className={`${styles.status} ${
+            published ? styles.published : styles.draft
+          }`}
+        >
+          {published ? 'Published' : 'Draft'}
+        </p>
+        <p>Created: {new Date(createdAt).toLocaleDateString()}</p>
+        <p>Updated: {new Date(updatedAt).toLocaleDateString()}</p>
+      </div>
+
+      {comments.length > 0 && (
+        <div className={styles.comments}>
+          <h4>Comments ({comments.length})</h4>
+          {comments.map((comment) => (
+            <div key={comment.id} className={styles.comment}>
+              <p>{comment.text}</p>
+              <span className={styles.commentDate}>
+                {new Date(comment.createdAt).toLocaleDateString()}
+              </span>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };

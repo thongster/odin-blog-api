@@ -97,9 +97,7 @@ const Profile = () => {
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.postsGrid}>
           {posts ? (
-            posts.map((post) => (
-              <PostCard key={post.id} post={post} comments={post.comments} />
-            ))
+            posts.map((post) => <PostCard key={post.id} post={post} />)
           ) : (
             <p>No posts</p>
           )}

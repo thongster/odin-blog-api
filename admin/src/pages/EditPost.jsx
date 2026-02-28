@@ -1,6 +1,18 @@
 import styles from './EditPost.module.css';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const EditPost = () => {
+  // go to login if no token
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+    }
+  }, [token]);
+
+  const handleSubmit = async () => {};
+
   return (
     <div className={styles.createPostPage}>
       <div className={styles.container}>

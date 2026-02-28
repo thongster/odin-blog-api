@@ -1,5 +1,5 @@
 import styles from './CreatePost.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -11,6 +11,13 @@ const CreatePost = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
+
+  // go to login if no token
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+    }
+  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

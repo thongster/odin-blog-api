@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
-  const { token, login, logout } = useAuth();
+  const { token, login } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
 
@@ -131,7 +131,7 @@ const Signup = () => {
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="confirmPassword">Password</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             id="confirmPassword"
             name="confirmPassword"

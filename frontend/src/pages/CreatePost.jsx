@@ -8,7 +8,7 @@ const CreatePost = () => {
   const [content, setContent] = useState('');
   const [published, setPublished] = useState(false);
   const [error, setError] = useState(null);
-  const { token, login, logout } = useAuth();
+  const { token, logout } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
 

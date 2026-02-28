@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-  const { token, login, logout } = useAuth();
+  const { token, login } = useAuth();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
 

@@ -4,6 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const EditPost = () => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [published, setPublished] = useState(false);
+  const [error, setError] = useState(null);
+  const { token, logout } = useAuth();
+  const navigate = useNavigate();
+  const baseUrl = 'http://localhost:3000';
+
   // go to login if no token
   useEffect(() => {
     if (!token) {
@@ -14,9 +22,9 @@ const EditPost = () => {
   const handleSubmit = async () => {};
 
   return (
-    <div className={styles.createPostPage}>
+    <div className={styles.editPostPage}>
       <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>Create New Post</h2>
+        <h2 className={styles.sectionTitle}>Edit Post</h2>
         {error && <p className={styles.error}>{error}</p>}
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>

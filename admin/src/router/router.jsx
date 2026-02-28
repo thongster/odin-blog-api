@@ -16,7 +16,7 @@ const routes = [
       { index: true, element: <Home /> },
       { path: 'profile', element: <Profile /> },
       { path: 'create', element: <CreatePost /> },
-      { path: 'edit', element: <EditPost /> },
+      { path: 'edit/:postId', element: <EditPost /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
     ],

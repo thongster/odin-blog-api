@@ -1,6 +1,6 @@
 import styles from './EditPost.module.css';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const EditPost = () => {
@@ -9,6 +9,7 @@ const EditPost = () => {
   const [published, setPublished] = useState(false);
   const [error, setError] = useState(null);
   const { token, logout } = useAuth();
+  const { postId } = useParams();
   const navigate = useNavigate();
   const baseUrl = 'http://localhost:3000';
 
@@ -18,6 +19,38 @@ const EditPost = () => {
       navigate('/');
     }
   }, [token]);
+
+  // get post info by postId
+  useEffect(() => {
+    const fetchPostById = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/posts/${postId}`);
+
+        const data = await response.json();
+
+        // logout if token expired
+        if (response.status === 401) {
+          logout();
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            data.status?.[0]?.msg || data?.message || 'Failed to find  post',
+          );
+        }
+
+        setTitle(data.title);
+        setContent(data.content);
+        setPublished(data.published);
+
+        console.log('Post successfully found');
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchPostById();
+  }, [postId, token, logout]);
 
   const handleSubmit = async () => {};
 

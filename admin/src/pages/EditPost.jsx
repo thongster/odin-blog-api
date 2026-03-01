@@ -52,7 +52,39 @@ const EditPost = () => {
     fetchPostById();
   }, [postId, token, logout]);
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${baseUrl}/posts`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title, content, published }),
+      });
+
+      const data = await response.json();
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.status?.[0]?.msg || data?.message || 'Failed to edit post',
+        );
+      }
+
+      // navigate to home page
+      navigate('/');
+      console.log('Post successfully created');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div className={styles.editPostPage}>

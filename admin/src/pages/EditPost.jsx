@@ -127,7 +127,7 @@ const EditPost = () => {
           </div>
 
           <button type="submit" className={styles.button}>
-            {published ? 'Create Post' : 'Save Draft'}
+            {published ? 'Edit Post' : 'Save Draft'}
           </button>
         </form>
       </div>

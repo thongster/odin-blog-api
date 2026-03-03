@@ -58,7 +58,7 @@ const updatePost = async (req, res) => {
 
   const updatedPost = await prisma.post.update({
     where: {
-      id: req.params.postId,
+      id: Number(req.params.postId),
     },
     data: {
       title: req.body.title,

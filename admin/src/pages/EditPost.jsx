@@ -56,7 +56,7 @@ const EditPost = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${baseUrl}/posts`, {
+      const response = await fetch(`${baseUrl}/posts/${postId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const EditPost = () => {
 
       // navigate to home page
       navigate('/');
-      console.log('Post successfully created');
+      console.log('Post successfully edited');
     } catch (err) {
       setError(err.message);
     }

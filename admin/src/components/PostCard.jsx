@@ -3,6 +3,7 @@ import styles from './PostCard.module.css';
 const PostCard = ({ post }) => {
   // destructure post object
   const {
+    id,
     title,
     content,
     createdAt,
@@ -30,6 +31,8 @@ const PostCard = ({ post }) => {
         <p>Created: {new Date(createdAt).toLocaleDateString()}</p>
         <p>Updated: {new Date(updatedAt).toLocaleDateString()}</p>
       </div>
+
+      <button className="editBtn">{`Edit ${id}`}</button>
 
       {comments.length > 0 && (
         <div className={styles.comments}>

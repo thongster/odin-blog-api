@@ -40,7 +40,7 @@ const PostCard = ({ post }) => {
       </div>
 
       <button
-        className="editBtn"
+        className={styles.editBtn}
         onClick={handleEditClick}
       >{`Edit ${id}`}</button>
 

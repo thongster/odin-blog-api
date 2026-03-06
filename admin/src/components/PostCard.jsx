@@ -1,6 +1,9 @@
 import styles from './PostCard.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const PostCard = ({ post }) => {
+  const navigate = useNavigate();
+
   // destructure post object
   const {
     id,
@@ -11,6 +14,10 @@ const PostCard = ({ post }) => {
     published,
     comments = [],
   } = post;
+
+  const handleEditClick = () => {
+    navigate(`/edit/${id}`);
+  };
 
   return (
     <div className={styles.card}>
@@ -32,7 +39,10 @@ const PostCard = ({ post }) => {
         <p>Updated: {new Date(updatedAt).toLocaleDateString()}</p>
       </div>
 
-      <button className="editBtn">{`Edit ${id}`}</button>
+      <button
+        className="editBtn"
+        onClick={handleEditClick}
+      >{`Edit ${id}`}</button>
 
       {comments.length > 0 && (
         <div className={styles.comments}>

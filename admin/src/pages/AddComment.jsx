@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const AddComment = () => {
+const AddComment = ({ post }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [published, setPublished] = useState(false);
@@ -19,17 +19,20 @@ const AddComment = () => {
     }
   }, [token]);
 
+  // destructure post object
+  const { postId, userId } = post;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${baseUrl}/posts`, {
+      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ title, content, published }),
+        body: JSON.stringify({ text, userId, postId }),
       });
 
       const data = await response.json();
@@ -41,20 +44,20 @@ const AddComment = () => {
 
       if (!response.ok) {
         throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Failed to create post',
+          data.status?.[0]?.msg || data?.message || 'Failed to create comment',
         );
       }
 
       // navigate to home page
       navigate('/');
-      console.log('Post successfully created');
+      console.log('Comment successfully created');
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className={styles.createPostPage}>
+    <div className={styles.addCommentPage}>
       <div className={styles.container}>
         <h2 className={styles.sectionTitle}>Create New Post</h2>
         {error && <p className={styles.error}>{error}</p>}

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const AddComment = ({ post }) => {
+const AddComment = ({ postId }) => {
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
   const { token, logout } = useAuth();
@@ -15,10 +15,7 @@ const AddComment = ({ post }) => {
     if (!token) {
       navigate('/');
     }
-  }, [token]);
-
-  // destructure post object
-  const { postId, userId } = post;
+  }, [token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +27,7 @@ const AddComment = ({ post }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ text, userId, postId }),
+        body: JSON.stringify({ text }),
       });
 
       const data = await response.json();
@@ -46,13 +43,43 @@ const AddComment = ({ post }) => {
         );
       }
 
-      // navigate to home page
-      navigate('/');
       console.log('Comment successfully created');
     } catch (err) {
       setError(err.message);
     }
   };
+
+  const handleEdit = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      const data = await response.json();
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.status?.[0]?.msg || data?.message || 'Failed to edit comment',
+        );
+      }
+
+      console.log('Comment successfully edited');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleDelete = async () => {};
 
   return (
     <div className={styles.addCommentPage}>

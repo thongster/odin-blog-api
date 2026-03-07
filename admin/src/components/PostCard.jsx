@@ -45,6 +45,8 @@ const PostCard = ({ post }) => {
         onClick={handleEditClick}
       >{`Edit ${id}`}</button>
 
+      <AddComment postId={id} />
+
       {comments.length > 0 && (
         <div className={styles.comments}>
           <h4>Comments ({comments.length})</h4>
@@ -58,7 +60,6 @@ const PostCard = ({ post }) => {
           ))}
         </div>
       )}
-      <AddComment post={post} />
     </div>
   );
 };

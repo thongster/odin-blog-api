@@ -1,5 +1,6 @@
 import styles from './PostCard.module.css';
 import { useNavigate } from 'react-router-dom';
+import { AddComment } from './AddComment';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ const PostCard = ({ post }) => {
           ))}
         </div>
       )}
+      <AddComment post={post} />
     </div>
   );
 };

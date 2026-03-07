@@ -61,9 +61,9 @@ const AddComment = ({ post }) => {
         {error && <p className={styles.error}>{error}</p>}
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="text">New Comment</label>
             <input
-              id="title"
+              id="text"
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}

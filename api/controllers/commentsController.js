@@ -36,7 +36,7 @@ const createComment = async (req, res) => {
   const newComment = await prisma.comment.create({
     data: {
       text: req.body.text,
-      userId: req.user.id,
+      userId: Number(req.user.id),
       postId: Number(req.params.postId),
     },
   });

@@ -1,6 +1,7 @@
 import styles from './PostCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { AddComment } from './AddComment';
+import { CommentCard } from './CommentCard';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const PostCard = ({ post }) => {
     comments = [],
   } = post;
 
-  const handleEditClick = () => {
+  const handleEditPost = () => {
     navigate(`/edit/${id}`);
   };
 
@@ -42,7 +43,7 @@ const PostCard = ({ post }) => {
 
       <button
         className={styles.editBtn}
-        onClick={handleEditClick}
+        onClick={handleEditPost}
       >{`Edit ${id}`}</button>
 
       <AddComment postId={id} />

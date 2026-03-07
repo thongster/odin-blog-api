@@ -48,19 +48,7 @@ const PostCard = ({ post }) => {
 
       <AddComment postId={id} />
 
-      {comments.length > 0 && (
-        <div className={styles.comments}>
-          <h4>Comments ({comments.length})</h4>
-          {comments.map((comment) => (
-            <div key={comment.id} className={styles.comment}>
-              <p>{comment.text}</p>
-              <span className={styles.commentDate}>
-                {new Date(comment.createdAt).toLocaleDateString()}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+      {comments.length > 0 && <CommentCard comments={comments} />}
     </div>
   );
 };

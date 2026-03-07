@@ -1,6 +1,6 @@
 import styles from './CommentCard.module.css';
 
-const CommentCard = () => {
+const CommentCard = ({ comments }) => {
   const handleEdit = async () => {
     try {
       const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
@@ -33,7 +33,19 @@ const CommentCard = () => {
 
   const handleDelete = async () => {};
 
-  return <></>;
+  return (
+    <div className={styles.comments}>
+      <h4>Comments ({comments.length})</h4>
+      {comments.map((comment) => (
+        <div key={comment.id} className={styles.comment}>
+          <p>{comment.text}</p>
+          <span className={styles.commentDate}>
+            {new Date(comment.createdAt).toLocaleDateString()}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export { CommentCard };

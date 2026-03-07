@@ -7,7 +7,7 @@ import {
   updateComment,
   deleteComment,
 } from '../controllers/commentsController.js';
-const comments = Router();
+const comments = Router({ mergeParams: true });
 
 // view all comments
 comments.get('/', getAllComments);

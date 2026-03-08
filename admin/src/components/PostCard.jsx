@@ -49,9 +49,13 @@ const PostCard = ({ post }) => {
         onClick={handleEditPost}
       >{`Edit ${id}`}</button>
 
-      <AddComment postId={id} />
+      <AddComment
+        postId={id}
+        comments={postComments}
+        setPostComments={setPostComments}
+      />
 
-      {comments.length > 0 && <CommentCard comments={comments} />}
+      {postComments.length > 0 && <CommentCard comments={postComments} />}
     </div>
   );
 };

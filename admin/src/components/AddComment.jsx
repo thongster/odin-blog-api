@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const AddComment = ({ postId }) => {
+const AddComment = ({ postId, setPostComments }) => {
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
   const { token, logout } = useAuth();
@@ -49,6 +49,11 @@ const AddComment = ({ postId }) => {
     }
   };
 
+  // update react's Comment state so that
+  const handleNewComment = (newComment) => {
+    setPostComments((prevComments) => [...prevComments, newComment]);
+  };
+
   return (
     <div className={styles.addCommentPage}>
       <div className={styles.container}>
@@ -67,7 +72,11 @@ const AddComment = ({ postId }) => {
             />
           </div>
 
-          <button type="submit" className={styles.button}>
+          <button
+            type="submit"
+            className={styles.button}
+            onSubmit={handleNewComment}
+          >
             Create Comment
           </button>
         </form>

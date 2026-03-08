@@ -93,11 +93,11 @@ const CommentCard = ({ postId, userId, comments }) => {
           <div className={styles.secondRow}>
             <div className={styles.dates}>
               <span className={styles.commentDate}>
-                {new Date(comment.createdAt).toLocaleDateString()}
+                Created: {new Date(comment.createdAt).toLocaleDateString()}
               </span>
-              {comment.updatedAt ?? (
-                <span className={styles.commentDate}>
-                  {new Date(comment.createdAt).toLocaleDateString()}
+              {comment.updatedAt !== comment.createdAt && (
+                <span className={styles.updatedCommentDate}>
+                  Updated: {new Date(comment.updatedAt).toLocaleDateString()}
                 </span>
               )}
             </div>

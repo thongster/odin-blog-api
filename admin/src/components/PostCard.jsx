@@ -17,6 +17,9 @@ const PostCard = ({ post }) => {
     comments = [],
   } = post;
 
+  // comments have its own state so it rerenders when a new comment is added
+  const [postComments, setPostComments] = useState(comments);
+
   const handleEditPost = () => {
     navigate(`/edit/${id}`);
   };

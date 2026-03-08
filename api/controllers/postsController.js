@@ -87,7 +87,7 @@ const deletePost = async (req, res) => {
 
   await prisma.post.delete({
     where: {
-      id: req.params.postId,
+      id: Number(req.params.postId),
     },
   });
 

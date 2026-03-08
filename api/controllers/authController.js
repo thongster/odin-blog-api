@@ -144,7 +144,7 @@ const signup = async (req, res) => {
     return res.status(201).json({
       token: jwtToken,
       user: {
-        id: user.id,
+        id: newUser.id,
       },
     });
   } catch (error) {

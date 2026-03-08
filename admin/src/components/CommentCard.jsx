@@ -45,10 +45,17 @@ const CommentCard = ({ postId, userId, comments }) => {
       {comments.map((comment) => (
         <div key={comment.id} className={styles.comment}>
           <p>{comment.text}</p>
-          <span className={styles.commentDate}>
-            {new Date(comment.createdAt).toLocaleDateString()}
-          </span>
-          {userId == user.id && <button>Edit</button>}
+          <div className={styles.secondRow}>
+            <span className={styles.commentDate}>
+              {new Date(comment.createdAt).toLocaleDateString()}
+            </span>
+            {userId == user.id && (
+              <div className={styles.commentActions}>
+                <button className={styles.editCommentBtn}>Edit</button>
+                <button className={styles.deleteCommentBtn}>delete</button>
+              </div>
+            )}
+          </div>
         </div>
       ))}
     </div>

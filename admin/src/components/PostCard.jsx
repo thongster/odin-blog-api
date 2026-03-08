@@ -77,14 +77,15 @@ const PostCard = ({ post, setPosts }) => {
 
       {error && <p className={styles.error}>{error}</p>}
 
-      <button
-        className={styles.editBtn}
-        onClick={handleEditPost}
-      >{`Edit ${id}`}</button>
+      <div className={styles.actions}>
+        <button className={styles.editBtn} onClick={handleEditPost}>
+          Edit
+        </button>
 
-      <button className={styles.deleteBtn} onClick={() => handleDelete(id)}>
-        Delete
-      </button>
+        <button className={styles.deleteBtn} onClick={() => handleDelete(id)}>
+          Delete
+        </button>
+      </div>
 
       <AddComment postId={id} setPostComments={setPostComments} />
 

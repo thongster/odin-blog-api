@@ -14,7 +14,7 @@ const AdminNavigation = () => {
           <p>Create, edit, and delete blog posts.</p>
         </div>
 
-        <div className={styles.card}>
+        <div className={styles.card} onClick={() => navigate('/profile')}>
           <h3>Comments</h3>
           <p>Moderate and review blog comments.</p>
         </div>

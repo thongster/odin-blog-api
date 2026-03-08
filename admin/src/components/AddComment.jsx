@@ -17,6 +17,11 @@ const AddComment = ({ postId, setPostComments }) => {
     }
   }, [token, navigate]);
 
+  // update react's Comment state so that
+  const handleNewComment = (newComment) => {
+    setPostComments((prevComments) => [...prevComments, newComment]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,15 +48,17 @@ const AddComment = ({ postId, setPostComments }) => {
         );
       }
 
+      // update comment state to trigger rerender
+      handleNewComment(data);
+
+      // clear form
+      setText('');
+      setError(null);
+
       console.log('Comment successfully created');
     } catch (err) {
       setError(err.message);
     }
-  };
-
-  // update react's Comment state so that
-  const handleNewComment = (newComment) => {
-    setPostComments((prevComments) => [...prevComments, newComment]);
   };
 
   return (
@@ -72,11 +79,7 @@ const AddComment = ({ postId, setPostComments }) => {
             />
           </div>
 
-          <button
-            type="submit"
-            className={styles.button}
-            onSubmit={handleNewComment}
-          >
+          <button type="submit" className={styles.button}>
             Create Comment
           </button>
         </form>

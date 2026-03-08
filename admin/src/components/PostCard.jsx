@@ -1,4 +1,5 @@
 import styles from './PostCard.module.css';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddComment } from './AddComment';
 import { CommentCard } from './CommentCard';
@@ -49,11 +50,7 @@ const PostCard = ({ post }) => {
         onClick={handleEditPost}
       >{`Edit ${id}`}</button>
 
-      <AddComment
-        postId={id}
-        comments={postComments}
-        setPostComments={setPostComments}
-      />
+      <AddComment postId={id} setPostComments={setPostComments} />
 
       {postComments.length > 0 && <CommentCard comments={postComments} />}
     </div>

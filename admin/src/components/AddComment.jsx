@@ -62,28 +62,21 @@ const AddComment = ({ postId, setPostComments }) => {
   };
 
   return (
-    <div className={styles.addCommentPage}>
-      <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>Create New Comment</h2>
-        {error && <p className={styles.error}>{error}</p>}
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.field}>
-            <label htmlFor="text">New Comment</label>
-            <input
-              id="text"
-              type="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Enter comment"
-              required
-            />
-          </div>
+    <div className={styles.addComment}>
+      {error && <p className={styles.error}>{error}</p>}
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <textarea
+          id="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Enter comment"
+          required
+        />
 
-          <button type="submit" className={styles.button}>
-            Create Comment
-          </button>
-        </form>
-      </div>
+        <button type="submit" className={styles.button}>
+          Create Comment
+        </button>
+      </form>
     </div>
   );
 };

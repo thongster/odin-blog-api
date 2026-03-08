@@ -19,7 +19,7 @@ const CommentCard = ({ postId, userId, comments }) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ text }),
+          body: JSON.stringify({ text: editText }),
         },
       );
 
@@ -73,6 +73,7 @@ const CommentCard = ({ postId, userId, comments }) => {
   return (
     <div className={styles.comments}>
       <h4>Comments ({comments.length})</h4>
+      {error && <p className={styles.error}>{error}</p>}
       {comments.map((comment) => (
         <div key={comment.id} className={styles.comment}>
           {editingCommentId === comment.id ? (
@@ -90,9 +91,16 @@ const CommentCard = ({ postId, userId, comments }) => {
             <p>{comment.text}</p>
           )}
           <div className={styles.secondRow}>
-            <span className={styles.commentDate}>
-              {new Date(comment.createdAt).toLocaleDateString()}
-            </span>
+            <div className={styles.dates}>
+              <span className={styles.commentDate}>
+                {new Date(comment.createdAt).toLocaleDateString()}
+              </span>
+              {comment.updatedAt ?? (
+                <span className={styles.commentDate}>
+                  {new Date(comment.createdAt).toLocaleDateString()}
+                </span>
+              )}
+            </div>
             {userId == user.id && (
               <div className={styles.commentActions}>
                 <button

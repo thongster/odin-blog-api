@@ -101,7 +101,8 @@ const CommentCard = ({ postId, userId, comments }) => {
                 </span>
               )}
             </div>
-            {userId == user.id && (
+
+            {user?.id === userId && (
               <div className={styles.commentActions}>
                 <button
                   className={styles.editCommentBtn}

@@ -3,9 +3,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddComment } from './AddComment';
 import { CommentCard } from './CommentCard';
+import { useAuth } from '../context/AuthContext';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
+  const { token, logout } = useAuth();
+  const [error, setError] = useState(null);
+  const baseUrl = 'http://localhost:3000';
 
   // destructure post object
   const {
@@ -26,6 +30,26 @@ const PostCard = ({ post }) => {
     navigate(`/edit/${id}`);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${baseUrl}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
+
+      console.log('Post successfully deleted');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -43,13 +67,21 @@ const PostCard = ({ post }) => {
           {published ? 'Published' : 'Draft'}
         </p>
         <p>Created: {new Date(createdAt).toLocaleDateString()}</p>
-        <p>Updated: {new Date(updatedAt).toLocaleDateString()}</p>
+        {updatedAt !== createdAt && (
+          <p>Updated: {new Date(updatedAt).toLocaleDateString()}</p>
+        )}
       </div>
+
+      {error && <p className={styles.error}>{error}</p>}
 
       <button
         className={styles.editBtn}
         onClick={handleEditPost}
       >{`Edit ${id}`}</button>
+
+      <button className={styles.deleteBtn} onClick={() => handleDelete(id)}>
+        Delete
+      </button>
 
       <AddComment postId={id} setPostComments={setPostComments} />
 

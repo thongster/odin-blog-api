@@ -9,8 +9,12 @@ const PUBLIC_SITE_URL = '#'; // replace later
 const Home = () => {
   return (
     <>
-      {/* <Hero /> */}
-      {/* <Hero /> */}
+      <div className={styles.container}>
+        <AdminWelcome />
+        <QuickActions />
+        <AdminNavigation />
+        <PublicSiteLink url={PUBLIC_SITE_URL} />
+      </div>
     </>
   );
 };

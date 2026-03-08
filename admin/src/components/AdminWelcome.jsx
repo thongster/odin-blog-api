@@ -5,7 +5,7 @@ const AdminWelcome = () => {
     <section className={styles.wrapper}>
       <h1 className={styles.title}>Admin Dashboard</h1>
       <p className={styles.subtitle}>
-        Manage posts, moderate comments, and control your blog.
+        Log in to access the admin dashboard and manage your blog.
       </p>
     </section>
   );

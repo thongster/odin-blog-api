@@ -6,17 +6,22 @@ const CommentCard = ({ postId, userId, comments }) => {
   const { token, user, logout } = useAuth();
   const baseUrl = 'http://localhost:3000';
   const [error, setError] = useState(null);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editText, setEditText] = useState('');
 
-  const handleEdit = async () => {
+  const handleEditSubmit = async (commentId) => {
     try {
-      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${baseUrl}/posts/${postId}/comments/${commentId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ text }),
         },
-        body: JSON.stringify({ text }),
-      });
+      );
 
       const data = await response.json();
 
@@ -35,6 +40,11 @@ const CommentCard = ({ postId, userId, comments }) => {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleEditCommentBtn = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditText(comment.text);
   };
 
   const handleDelete = async (commentId) => {
@@ -65,7 +75,20 @@ const CommentCard = ({ postId, userId, comments }) => {
       <h4>Comments ({comments.length})</h4>
       {comments.map((comment) => (
         <div key={comment.id} className={styles.comment}>
-          <p>{comment.text}</p>
+          {editingCommentId === comment.id ? (
+            <form onSubmit={handleEditSubmit(comment.id)}>
+              <textarea
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+              />
+              <button type="submit">Save</button>
+              <button type="button" onClick={() => setEditingCommentId(null)}>
+                Cancel
+              </button>
+            </form>
+          ) : (
+            <p>{comment.text}</p>
+          )}
           <div className={styles.secondRow}>
             <span className={styles.commentDate}>
               {new Date(comment.createdAt).toLocaleDateString()}
@@ -74,7 +97,7 @@ const CommentCard = ({ postId, userId, comments }) => {
               <div className={styles.commentActions}>
                 <button
                   className={styles.editCommentBtn}
-                  onClick={() => handleEdit(comment.id)}
+                  onClick={() => handleEditCommentBtn(comment)}
                 >
                   Edit
                 </button>

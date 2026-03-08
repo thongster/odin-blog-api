@@ -5,7 +5,7 @@ import { AddComment } from './AddComment';
 import { CommentCard } from './CommentCard';
 import { useAuth } from '../context/AuthContext';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, setPosts }) => {
   const navigate = useNavigate();
   const { token, logout } = useAuth();
   const [error, setError] = useState(null);
@@ -43,6 +43,9 @@ const PostCard = ({ post }) => {
       if (response.status === 401) {
         logout();
       }
+
+      // remove post from state
+      setPosts((prev) => prev.filter((post) => post.id !== id));
 
       console.log('Post successfully deleted');
     } catch (err) {

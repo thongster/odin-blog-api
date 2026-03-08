@@ -7,37 +7,58 @@ const CommentCard = ({ postId, userId, comments }) => {
   const baseUrl = 'http://localhost:3000';
   const [error, setError] = useState(null);
 
-  //   const handleEdit = async () => {
-  //     try {
-  //       const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify({ text }),
-  //       });
+  const handleEdit = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text }),
+      });
 
-  //       const data = await response.json();
+      const data = await response.json();
 
-  //       // logout if token expired
-  //       if (response.status === 401) {
-  //         logout();
-  //       }
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
 
-  //       if (!response.ok) {
-  //         throw new Error(
-  //           data.status?.[0]?.msg || data?.message || 'Failed to edit comment',
-  //         );
-  //       }
+      if (!response.ok) {
+        throw new Error(
+          data.status?.[0]?.msg || data?.message || 'Failed to edit comment',
+        );
+      }
 
-  //       console.log('Comment successfully edited');
-  //     } catch (err) {
-  //       setError(err.message);
-  //     }
-  //   };
+      console.log('Comment successfully edited');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
-  //   const handleDelete = async () => {};
+  const handleDelete = async (commentId) => {
+    try {
+      const response = await fetch(
+        `${baseUrl}/posts/${postId}/comments/${commentId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      // logout if token expired
+      if (response.status === 401) {
+        logout();
+      }
+
+      console.log('Comment successfully deleted');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div className={styles.comments}>
@@ -51,8 +72,18 @@ const CommentCard = ({ postId, userId, comments }) => {
             </span>
             {userId == user.id && (
               <div className={styles.commentActions}>
-                <button className={styles.editCommentBtn}>Edit</button>
-                <button className={styles.deleteCommentBtn}>delete</button>
+                <button
+                  className={styles.editCommentBtn}
+                  onClick={() => handleEdit(comment.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className={styles.deleteCommentBtn}
+                  onClick={() => handleDelete(comment.id)}
+                >
+                  Delete
+                </button>
               </div>
             )}
           </div>

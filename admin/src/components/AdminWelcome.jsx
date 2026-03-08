@@ -1,0 +1,3 @@
+const AdminWelcome = () => {};
+
+export { AdminWelcome };

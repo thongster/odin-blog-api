@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ProfileSummary } from '../components/ProfileSummary';
 import { PostCard } from '../components/PostCard';
+import { NewPostBtn } from '../components/NewPostBtn';
 
 const Profile = () => {
   const { token, logout } = useAuth();
@@ -93,7 +94,10 @@ const Profile = () => {
       </div>
 
       <div className={styles.mainContent}>
-        <h2 className={styles.sectionTitle}>Your Posts</h2>
+        <div className={styles.heading}>
+          <h2 className={styles.sectionTitle}>Your Posts</h2>
+          <NewPostBtn />
+        </div>
         {error && <p className={styles.error}>{error}</p>}
         <div className={styles.postsGrid}>
           {posts ? (

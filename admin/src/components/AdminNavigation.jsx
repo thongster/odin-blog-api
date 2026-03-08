@@ -1,0 +1,3 @@
+const AdminNavigation = () => {};
+
+export { AdminNavigation };

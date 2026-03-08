@@ -7,7 +7,11 @@ const NewPostBtn = () => {
   const handleClick = () => {
     navigate('/create');
   };
-  return <button onClick={handleClick}>New Post</button>;
+  return (
+    <button className={styles.btn} onClick={handleClick}>
+      New Post
+    </button>
+  );
 };
 
 export { NewPostBtn };

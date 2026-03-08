@@ -1,0 +1,3 @@
+const QuickActions = () => {};
+
+export { QuickActions };

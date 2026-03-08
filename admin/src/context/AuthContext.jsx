@@ -10,19 +10,33 @@ const AuthProvider = ({ children }) => {
     return localStorage.getItem('token');
   });
 
+  // parse user string into an object so we can use it
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
   // login function to set token after successful login api call
-  const login = (newToken) => {
-    localStorage.setItem('token', newToken);
-    setToken(newToken);
+  const login = (dataFromBackend) => {
+    localStorage.setItem('token', dataFromBackend.newToken);
+    localStorage.setItem('user', JSON.stringify(dataFromBackend.user));
+
+    setToken(dataFromBackend.token);
+    setUser(dataFromBackend.user);
   };
 
   // logout and remove token
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
     setToken(null);
+    setUser(null);
   };
 
-  return <AuthContext value={{ token, login, logout }}>{children}</AuthContext>;
+  return (
+    <AuthContext value={{ token, user, login, logout }}>{children}</AuthContext>
+  );
 };
 
 // custom hook, useContext to allow use of custom context function

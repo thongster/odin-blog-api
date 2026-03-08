@@ -1,6 +1,14 @@
 import styles from './CommentCard.module.css';
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
-const CommentCard = ({ comments }) => {
+const CommentCard = ({ postId, comments }) => {
+  const { token, logout } = useAuth();
+  const baseUrl = 'http://localhost:3000';
+  const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
+
   const handleEdit = async () => {
     try {
       const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {

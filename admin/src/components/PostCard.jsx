@@ -52,7 +52,9 @@ const PostCard = ({ post }) => {
 
       <AddComment postId={id} setPostComments={setPostComments} />
 
-      {postComments.length > 0 && <CommentCard comments={postComments} />}
+      {postComments.length > 0 && (
+        <CommentCard postId={id} comments={postComments} />
+      )}
     </div>
   );
 };

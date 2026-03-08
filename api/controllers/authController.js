@@ -102,6 +102,9 @@ const login = async (req, res, next) => {
 
     return res.status(200).json({
       token: jwtToken,
+      user: {
+        id: user.id,
+      },
     });
   })(req, res, next);
 };
@@ -140,6 +143,9 @@ const signup = async (req, res) => {
 
     return res.status(201).json({
       token: jwtToken,
+      user: {
+        id: user.id,
+      },
     });
   } catch (error) {
     // prisma error with uniques

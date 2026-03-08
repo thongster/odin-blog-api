@@ -16,6 +16,7 @@ const PostCard = ({ post }) => {
     updatedAt,
     published,
     comments = [],
+    userId,
   } = post;
 
   // comments have its own state so it rerenders when a new comment is added
@@ -53,7 +54,7 @@ const PostCard = ({ post }) => {
       <AddComment postId={id} setPostComments={setPostComments} />
 
       {postComments.length > 0 && (
-        <CommentCard postId={id} comments={postComments} />
+        <CommentCard postId={id} userId={userId} comments={postComments} />
       )}
     </div>
   );

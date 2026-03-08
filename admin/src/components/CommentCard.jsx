@@ -2,44 +2,42 @@ import styles from './CommentCard.module.css';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-const CommentCard = ({ postId, comments }) => {
-  const { token, logout } = useAuth();
+const CommentCard = ({ postId, userId, comments }) => {
+  const { token, user, logout } = useAuth();
   const baseUrl = 'http://localhost:3000';
-  const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
 
-  const handleEdit = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ text }),
-      });
+  //   const handleEdit = async () => {
+  //     try {
+  //       const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: JSON.stringify({ text }),
+  //       });
 
-      const data = await response.json();
+  //       const data = await response.json();
 
-      // logout if token expired
-      if (response.status === 401) {
-        logout();
-      }
+  //       // logout if token expired
+  //       if (response.status === 401) {
+  //         logout();
+  //       }
 
-      if (!response.ok) {
-        throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Failed to edit comment',
-        );
-      }
+  //       if (!response.ok) {
+  //         throw new Error(
+  //           data.status?.[0]?.msg || data?.message || 'Failed to edit comment',
+  //         );
+  //       }
 
-      console.log('Comment successfully edited');
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  //       console.log('Comment successfully edited');
+  //     } catch (err) {
+  //       setError(err.message);
+  //     }
+  //   };
 
-  const handleDelete = async () => {};
+  //   const handleDelete = async () => {};
 
   return (
     <div className={styles.comments}>
@@ -50,6 +48,7 @@ const CommentCard = ({ postId, comments }) => {
           <span className={styles.commentDate}>
             {new Date(comment.createdAt).toLocaleDateString()}
           </span>
+          {userId == user.id && <button>Edit</button>}
         </div>
       ))}
     </div>

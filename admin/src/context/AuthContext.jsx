@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
 
   // login function to set token after successful login api call
   const login = (dataFromBackend) => {
-    localStorage.setItem('token', dataFromBackend.newToken);
+    localStorage.setItem('token', dataFromBackend.token);
     localStorage.setItem('user', JSON.stringify(dataFromBackend.user));
 
     setToken(dataFromBackend.token);

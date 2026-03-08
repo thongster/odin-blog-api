@@ -49,7 +49,7 @@ const Login = () => {
       }
 
       // save jwt token
-      login(data.token);
+      login(data);
 
       // navigate to home page
       navigate('/');

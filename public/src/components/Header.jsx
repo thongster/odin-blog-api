@@ -2,7 +2,7 @@ import styles from './Header.module.css';
 import Nav from '../components/Nav';
 import logo from '../assets/logo.png';
 
-export default function Header() {
+const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -15,4 +15,6 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+export { Header };

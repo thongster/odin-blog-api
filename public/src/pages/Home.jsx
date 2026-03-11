@@ -1,8 +1,8 @@
 import styles from './Home.module.css';
-import { FeaturedPost } from '../components/FeaturedPost/FeaturedPost';
-import { LatestFood } from '../components/LatestFood/LatestFood';
-import { Favorites } from '../components/Favorites/Favorites';
-import { Story } from '../components/Story/Story';
+import { FeaturedPost } from '../components/FeaturedPost';
+import { LatestFood } from '../components/LatestFood';
+import { Favorites } from '../components/Favorites';
+import { Story } from '../components/Story';
 
 const Home = () => {
   return (

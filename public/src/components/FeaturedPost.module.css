@@ -1,0 +1,74 @@
+.featured {
+  margin-block: 3rem;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: clamp(1rem, 4vw, 2.5rem);
+  color: white;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.25),
+    transparent
+  );
+}
+
+.label {
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+
+.title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  max-width: 30ch;
+}
+
+.description {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  max-width: 55ch;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.button {
+  align-self: flex-start;
+
+  border: none;
+  background: #c0392b;
+  color: white;
+
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #a93226;
+}

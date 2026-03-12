@@ -1,5 +1,6 @@
 .section {
-  margin-block: 3rem;
+  margin-block: 1rem;
+  padding: 0 1rem;
 }
 
 .title {

@@ -1,11 +1,12 @@
 import styles from './FeaturedPost.module.css';
+import pho from '../assets/pho.png';
 
 const FeaturedPost = () => {
   return (
     <section className={styles.featured}>
       <div className={styles.imageWrapper}>
         <img
-          src="/images/pho.jpg"
+          src={pho}
           alt="Featured Vietnamese dish"
           className={styles.image}
         />

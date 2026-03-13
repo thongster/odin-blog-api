@@ -1,0 +1,14 @@
+.section {
+  max-width: clamp(70%, 600px, 90%);
+  margin: 3rem auto;
+}
+
+.title {
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  margin-bottom: 1.5rem;
+}
+
+.text {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}

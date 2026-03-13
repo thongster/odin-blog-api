@@ -1,4 +1,4 @@
-import { prisma } from '../prisma/lib/prisma.js';
+import { prisma } from "../prisma/lib/prisma.js";
 
 const getAllPosts = async (req, res) => {
   const allPosts = await prisma.post.findMany({
@@ -8,7 +8,7 @@ const getAllPosts = async (req, res) => {
   });
 
   if (!allPosts) {
-    return res.status(404).json({ message: 'All posts not found' });
+    return res.status(404).json({ message: "All posts not found" });
   }
 
   return res.status(200).json(allPosts);
@@ -22,23 +22,28 @@ const getPostById = async (req, res) => {
   });
 
   if (!post) {
-    return res.status(404).json({ message: 'Post not found' });
+    return res.status(404).json({ message: "Post not found" });
   }
 
   return res.status(200).json(post);
 };
 
 const createPost = async (req, res) => {
-  const newPost = await prisma.post.create({
-    data: {
-      title: req.body.title,
-      content: req.body.content,
-      published: req.body.published,
-      userId: req.user.id,
-    },
-  });
+  try {
+    const newPost = await prisma.post.create({
+      data: {
+        title: req.body.title,
+        content: req.body.content,
+        published: req.body.published, // Default to false if missing
+        userId: Number(req.user.id), // CRITICAL: Ensure this is a Number
+      },
+    });
 
-  return res.status(201).json(newPost);
+    return res.status(201).json(newPost);
+  } catch (error) {
+    console.error("Prisma Error:", error); // Check your terminal for this!
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 const updatePost = async (req, res) => {
@@ -49,11 +54,11 @@ const updatePost = async (req, res) => {
   });
 
   if (!post) {
-    return res.status(404).json({ message: 'Post not found' });
+    return res.status(404).json({ message: "Post not found" });
   }
 
   if (post.userId != Number(req.user.id)) {
-    return res.status(403).json({ message: 'Forbidden' });
+    return res.status(403).json({ message: "Forbidden" });
   }
 
   const updatedPost = await prisma.post.update({
@@ -78,11 +83,11 @@ const deletePost = async (req, res) => {
   });
 
   if (!post) {
-    return res.status(404).json({ message: 'Post not found' });
+    return res.status(404).json({ message: "Post not found" });
   }
 
   if (post.userId != req.user.id) {
-    return res.status(403).json({ message: 'Forbidden' });
+    return res.status(403).json({ message: "Forbidden" });
   }
 
   await prisma.post.delete({

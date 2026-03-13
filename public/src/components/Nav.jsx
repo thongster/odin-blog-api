@@ -1,9 +1,9 @@
 import styles from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
 
-const ADMIN_LINK = 'http://localhost:5173/';
-
 const Nav = () => {
+  const adminLink = import.meta.env.VITE_ADMIN_LINK;
+
   return (
     <nav className={styles.nav}>
       <NavLink
@@ -36,7 +36,7 @@ const Nav = () => {
       </NavLink>
 
       <a
-        href={ADMIN_LINK}
+        href={adminLink}
         className={({ isActive }) => (isActive ? styles.active : styles.link)}
       >
         Admin

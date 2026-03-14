@@ -1,11 +1,7 @@
 import { prisma } from "../prisma/lib/prisma.js";
 
 const getAllPosts = async (req, res) => {
-  const allPosts = await prisma.post.findMany({
-    where: {
-      userId: Number(req.user.id),
-    },
-  });
+  const allPosts = await prisma.post.findMany({});
 
   if (!allPosts) {
     return res.status(404).json({ message: "All posts not found" });

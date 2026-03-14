@@ -14,10 +14,21 @@ app.use(express.json());
 
 // allow cross origin
 app.use(
-  cors({
-    origin: process.env.FRONTEND_ORIGIN,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+  cors((req, callback) => {
+    const origin = req.header("Origin");
+    let options = { credentials: true };
+
+    if (origin === process.env.PUBLIC_ORIGIN) {
+      options.origin = true;
+      options.methods = ["GET"];
+    } else if (origin === process.env.ADMIN_ORIGIN) {
+      options.origin = true;
+      options.methods = ["GET", "POST", "PUT", "DELETE"];
+    } else {
+      options.origin = false; // Block others
+    }
+
+    callback(null, options);
   }),
 );
 

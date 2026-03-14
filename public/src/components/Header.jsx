@@ -7,8 +7,8 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <img src={logo} alt="Vietnam Food Adventure logo" />
-          <h1 className={styles.title}>Vietnam Food Adventure</h1>
+          <img src={logo} alt="Vietnam Food Adventures logo" />
+          <h1 className={styles.title}>Vietnam Food Adventures</h1>
         </div>
 
         <Nav />

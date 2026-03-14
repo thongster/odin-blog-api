@@ -1,14 +1,26 @@
 .section {
   max-width: clamp(70%, 600px, 90%);
   margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
 }
 
 .title {
   font-size: clamp(1.8rem, 3vw, 2.2rem);
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
 }
 
-.intro {
+.subtitle {
+  opacity: 0.7;
+}
+
+.text {
   margin-bottom: 1rem;
   line-height: 1.6;
 }

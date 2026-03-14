@@ -8,7 +8,12 @@ const Contact = () => {
 
   return (
     <section className={styles.section}>
-      <h1 className={styles.title}>Contact</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Contact</h1>
+        <p className={styles.subtitle}>
+          Questions, food tips, or travel recommendations? Send a message below.
+        </p>
+      </div>
 
       <p className={styles.text}>
         Vietnam Food Adventures is a community of people sharing their favorite

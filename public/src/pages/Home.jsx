@@ -41,11 +41,13 @@ const Home = () => {
     return posts[Math.floor(Math.random() * posts.length)];
   }, [posts]);
 
+  const latest = posts.toReversed();
+
   return (
     <div className={styles.container}>
       {error && <p className={styles.error}>{error}</p>}
       <FeaturedPost featured={featured} />
-      <LatestFood posts={posts} />
+      <LatestFood latest={latest} />
       <Favorites posts={posts} />
       <Story posts={posts} />
     </div>

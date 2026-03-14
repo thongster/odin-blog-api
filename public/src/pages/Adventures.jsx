@@ -73,7 +73,7 @@ const Adventures = () => {
             <h2 className={styles.postTitle}>{post.title}</h2>
 
             <div className={styles.metaBottom}>
-              <span>by {post.username}</span>
+              <span>by @{post.user.username}</span>
 
               <span className={styles.dot}></span>
 

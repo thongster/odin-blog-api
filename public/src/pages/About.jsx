@@ -1,11 +1,13 @@
 import styles from './About.module.css';
+import aboutHero from '../assets/abouthero.jpg';
+import aboutInlinePhoto from '../assets/aboutinlinephoto.png';
 
 const About = () => {
   return (
     <section className={styles.section}>
       <div className={styles.hero}>
         <img
-          src="/images/vietnam-food-hero.jpg"
+          src={aboutHero}
           alt="Vietnam street food scene"
           className={styles.heroImage}
         />
@@ -35,7 +37,7 @@ const About = () => {
 
         <div className={styles.inlineImageContainer}>
           <img
-            src="/images/vietnam-food-market.jpg"
+            src={aboutInlinePhoto}
             alt="Vietnam street food market"
             className={styles.inlineImage}
           />

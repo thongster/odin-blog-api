@@ -1,5 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import styles from './LatestFood.module.css';
+import hanoi from '../assets/hanoi-street.jpg';
+import halong from '../assets/halong-bay.png';
+import mientay from '../assets/mien-tay.png';
+
+const images = [hanoi, halong, mientay];
 
 const LatestFood = ({ latest }) => {
   return (
@@ -7,10 +12,10 @@ const LatestFood = ({ latest }) => {
       <h2 className={styles.title}>Latest Food Adventures</h2>
 
       <div className={styles.grid}>
-        {latest.slice(0, 3).map((post) => (
-          <article className={styles.card}>
+        {latest.slice(0, 3).map((post, index) => (
+          <article key={post.id} className={styles.card}>
             <img
-              src="/images/pho.jpg"
+              src={images[index % images.length]}
               alt={post.title}
               className={styles.image}
             />
@@ -21,6 +26,7 @@ const LatestFood = ({ latest }) => {
               <p className={styles.excerpt}>
                 {post.content.slice(0, 100) + '...'}
               </p>
+
               <NavLink to={`/posts/${post.id}`}>
                 <span className={styles.readMore}>Read story →</span>
               </NavLink>

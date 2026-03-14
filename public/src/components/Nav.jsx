@@ -35,12 +35,7 @@ const Nav = () => {
         Contact
       </NavLink>
 
-      <a
-        href={adminLink}
-        className={({ isActive }) => (isActive ? styles.active : styles.link)}
-      >
-        Admin
-      </a>
+      <a href={adminLink}>Admin</a>
     </nav>
   );
 };

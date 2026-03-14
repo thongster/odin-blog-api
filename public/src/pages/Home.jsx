@@ -7,6 +7,7 @@ import { Story } from '../components/Story';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
   const baseUrl = import.meta.VITE_BACKEND_BASE_URL;
 
   const getPosts = async () => {
@@ -28,6 +29,10 @@ const Home = () => {
       setError(err.message);
     }
   };
+
+  getPosts();
+
+  // {error && <p className={styles.error}>{error}</p>}
 
   return (
     <div className={styles.container}>

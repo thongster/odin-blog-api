@@ -1,7 +1,9 @@
 import { prisma } from "../prisma/lib/prisma.js";
 
 const getAllPosts = async (req, res) => {
-  const allPosts = await prisma.post.findMany({});
+  const allPosts = await prisma.post.findMany({
+    include: { comments: true, user: true },
+  });
 
   if (!allPosts) {
     return res.status(404).json({ message: "All posts not found" });

@@ -43,12 +43,14 @@ const Home = () => {
 
   const latest = posts.toReversed();
 
+  const favorites = posts.slice(0, 4);
+
   return (
     <div className={styles.container}>
       {error && <p className={styles.error}>{error}</p>}
       <FeaturedPost featured={featured} />
       <LatestFood latest={latest} />
-      <Favorites posts={posts} />
+      <Favorites favorites={favorites} />
       <Story posts={posts} />
     </div>
   );

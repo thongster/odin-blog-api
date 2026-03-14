@@ -18,7 +18,9 @@ const LatestFood = ({ latest }) => {
             <div className={styles.content}>
               <h3 className={styles.cardTitle}>{post.title}</h3>
 
-              <p className={styles.excerpt}>{post.content.slice(0, 100)}</p>
+              <p className={styles.excerpt}>
+                {post.content.slice(0, 100) + '...'}
+              </p>
               <NavLink to={`/posts/${post.id}`}>
                 <span className={styles.readMore}>Read story →</span>
               </NavLink>

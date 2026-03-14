@@ -15,6 +15,7 @@ const Home = () => {
       const response = await fetch(`${baseUrl}/posts`, {
         method: 'GET',
       });
+
       const data = await response.json();
 
       if (!response.ok) {

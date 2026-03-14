@@ -27,7 +27,9 @@ const FeaturedPost = ({ featured }) => {
 
         <h2 className={styles.title}>{featured.title}</h2>
 
-        <p className={styles.description}>{featured.content}</p>
+        <p className={styles.description}>
+          {featured.content.slice(0, 100) + '...'}
+        </p>
 
         <button className={styles.button}>Read Story →</button>
       </div>

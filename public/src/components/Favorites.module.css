@@ -1,6 +1,6 @@
 .section {
-  margin-block: 1rem;
-  padding: 0 1rem;
+  margin-block: 2rem;
+  padding-inline: 1rem;
 }
 
 .title {
@@ -8,24 +8,54 @@
   margin-bottom: 1rem;
 }
 
+/* horizontal scroll row */
 .row {
   display: flex;
   gap: 1rem;
+  overflow-x: auto;
   padding-bottom: 0.5rem;
 }
 
+/* hide scrollbar */
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.row {
+  scrollbar-width: none;
+}
+
+/* card style */
 .card {
-  flex: 0 0 220px;
+  flex: 0 0 auto;
+  min-width: 180px;
+
+  padding: 1rem 1.25rem;
+
+  background: #fff7ed; /* warm street-food color */
+  border: 1px solid #f3d5b5;
+  border-radius: 8px;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.image {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 6px;
+/* hover interaction */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
+/* dish name */
 .name {
-  font-size: 0.95rem;
-  margin-top: 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* remove navlink styling */
+.row a {
+  text-decoration: none;
+  color: inherit;
 }

@@ -8,7 +8,7 @@ const Favorites = ({ favorites }) => {
 
       <div className={styles.row}>
         {favorites.map((post) => (
-          <NavLink to={`/posts/${post.id}`}>
+          <NavLink key={post.id} to={`/posts/${post.id}`}>
             <article className={styles.card}>
               <h3 className={styles.name}>{post.title}</h3>
             </article>

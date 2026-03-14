@@ -3,6 +3,18 @@ import styles from './Story.module.css';
 const Story = () => {
   return (
     <section className={styles.section}>
+      <div className={styles.banner}>
+        <img
+          src="/images/vietnam-food-banner.jpg"
+          alt="Vietnam street food"
+          className={styles.bannerImage}
+        />
+
+        <div className={styles.bannerOverlay}>
+          <h2 className={styles.bannerTitle}>The Stories Behind the Food</h2>
+        </div>
+      </div>
+
       <div className={styles.container}>
         <h2 className={styles.title}>The Story</h2>
 

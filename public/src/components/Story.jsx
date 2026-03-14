@@ -1,11 +1,12 @@
 import styles from './Story.module.css';
+import storyBanner from '../assets/storybanner.jpg';
 
 const Story = () => {
   return (
     <section className={styles.section}>
       <div className={styles.banner}>
         <img
-          src="/images/vietnam-food-banner.jpg"
+          src={storyBanner}
           alt="Vietnam street food"
           className={styles.bannerImage}
         />

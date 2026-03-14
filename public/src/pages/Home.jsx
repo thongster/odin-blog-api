@@ -1,5 +1,5 @@
 import styles from './Home.module.css';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FeaturedPost } from '../components/FeaturedPost';
 import { LatestFood } from '../components/LatestFood';
 import { Favorites } from '../components/Favorites';
@@ -35,10 +35,15 @@ const Home = () => {
     getPosts();
   }, []);
 
+  const featured = useMemo(() => {
+    if (posts.length === 0) return null;
+    return posts[Math.floor(Math.random() * posts.length)];
+  }, [posts]);
+
   return (
     <div className={styles.container}>
       {error && <p className={styles.error}>{error}</p>}
-      <FeaturedPost posts={posts} />
+      <FeaturedPost featured={featured} />
       <LatestFood posts={posts} />
       <Favorites posts={posts} />
       <Story posts={posts} />

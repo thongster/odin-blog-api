@@ -1,20 +1,33 @@
 import styles from './FeaturedPost.module.css';
 import pho from '../assets/pho.png';
 
-const FeaturedPost = () => {
+const FeaturedPost = ({ featured }) => {
+  if (!featured) {
+    return (
+      <div className={styles.imageWrapper}>
+        <img
+          src={pho}
+          alt={featured ? featured.title : ''}
+          className={styles.image}
+        />
+
+        <div className={styles.overlay}>
+          <div className={styles.loading}>Loading featured post...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.imageWrapper}>
-      <img src={pho} alt="Featured Vietnamese dish" className={styles.image} />
+      <img src={pho} alt={featured.title} className={styles.image} />
 
       <div className={styles.overlay}>
         <p className={styles.label}>Featured Story</p>
 
-        <h2 className={styles.title}>The Perfect Bowl of Pho in Hanoi</h2>
+        <h2 className={styles.title}>{featured.title}</h2>
 
-        <p className={styles.description}>
-          Discover the rich broth, fresh herbs, and hidden street stalls that
-          make Hanoi's pho unforgettable.
-        </p>
+        <p className={styles.description}>{featured.content}</p>
 
         <button className={styles.button}>Read Story →</button>
       </div>

@@ -7,24 +7,27 @@ const Adventures = () => {
   const [error, setError] = useState(null);
   const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   const getPosts = async () => {
     try {
-      const response = await fetch(`${baseUrl}/posts`, {
-        method: 'GET',
-      });
-
+      const response = await fetch(`${baseUrl}/posts`);
       const data = await response.json();
 
       if (!response.ok) {
-        console.log('in here');
         setError(data.status?.[0]?.msg || data?.message || 'Posts not found');
         return;
       }
 
-      console.log(`All Posts: ${data}`);
+      console.log('All Posts:', data);
       setPosts(data);
     } catch (err) {
-      console.log('in the catch');
       setError(err.message);
     }
   };
@@ -42,6 +45,8 @@ const Adventures = () => {
         </p>
       </header>
 
+      {error && <p className={styles.error}>{error}</p>}
+
       <section className={styles.posts}>
         {posts.map((post) => (
           <NavLink
@@ -49,13 +54,34 @@ const Adventures = () => {
             key={post.id}
             className={styles.postCard}
           >
-            <div className={styles.meta}>
+            <div className={styles.metaTop}>
               <span className={styles.region}>{post.region}</span>
+
               <span className={styles.dot}></span>
-              <span className={styles.date}>{post.date}</span>
+              <span>{formatDate(post.createdAt)}</span>
+
+              {post.updatedAt && (
+                <>
+                  <span className={styles.dot}></span>
+                  <span className={styles.updated}>
+                    Updated {formatDate(post.updatedAt)}
+                  </span>
+                </>
+              )}
             </div>
 
             <h2 className={styles.postTitle}>{post.title}</h2>
+
+            <div className={styles.metaBottom}>
+              <span>by {post.username}</span>
+
+              <span className={styles.dot}></span>
+
+              <span>
+                {post.comments?.length || 0}{' '}
+                {(post.comments?.length || 0) === 1 ? 'comment' : 'comments'}
+              </span>
+            </div>
 
             <span className={styles.readMore}>Read Adventure →</span>
           </NavLink>

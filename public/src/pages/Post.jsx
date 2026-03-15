@@ -1,5 +1,5 @@
 import styles from './Post.module.css';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const Post = () => {
@@ -110,16 +110,14 @@ const Post = () => {
           ))}
         </div>
 
-        <form className={styles.commentForm}>
-          <h3>Leave a comment</h3>
+        {/* Comment CTA */}
+        <div className={styles.commentCTA}>
+          <p>Want to join the conversation or leave your own food tip?</p>
 
-          <textarea
-            rows="4"
-            placeholder="Share your thoughts or food tips..."
-          />
-
-          <button type="submit">Post Comment</button>
-        </form>
+          <NavLink to="/admin" className={styles.commentButton}>
+            Go to Admin Panel
+          </NavLink>
+        </div>
       </section>
     </main>
   );

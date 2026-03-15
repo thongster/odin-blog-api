@@ -111,47 +111,35 @@
   color: #444;
 }
 
-/* ---------- COMMENT FORM ---------- */
+/* ---------- COMMENT CTA ---------- */
 
-.commentForm {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+.commentCTA {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+  text-align: center;
 }
 
-.commentForm h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.4rem;
+.commentCTA p {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #555;
 }
 
-.commentForm textarea {
-  padding: 0.7rem 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  resize: vertical;
-  min-height: 90px;
-}
-
-.commentForm textarea:focus {
-  outline: none;
-  border-color: #c94f3d;
-}
-
-.commentForm button {
-  align-self: flex-start;
+.commentButton {
+  display: inline-block;
   padding: 0.45rem 1rem;
   background: #c94f3d;
   color: white;
-  border: none;
+  text-decoration: none;
   border-radius: 6px;
   font-size: 0.85rem;
-  cursor: pointer;
   transition: background 0.2s ease;
 }
 
-.commentForm button:hover {
+.commentButton:hover {
   background: #a63f30;
 }
 

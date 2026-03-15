@@ -12,7 +12,7 @@ const Home = () => {
 
   const getPosts = async () => {
     try {
-      const response = await fetch(`${baseUrl}/posts`, {
+      const response = await fetch(`${baseUrl}/posts/published`, {
         method: 'GET',
       });
 

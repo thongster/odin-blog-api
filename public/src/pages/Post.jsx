@@ -4,28 +4,31 @@ import { useState, useEffect } from 'react';
 
 const Post = () => {
   const { postId } = useParams();
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
+
   const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
 
   const getPostById = async () => {
     try {
-      const response = await fetch(`${baseUrl}/posts/${postId}`, {
-        method: 'GET',
-      });
-
+      const response = await fetch(`${baseUrl}/posts/${postId}`);
       const data = await response.json();
 
       if (!response.ok) {
-        console.log('in here');
-        setError(data.status?.[0]?.msg || data?.message || 'Posts not found');
+        setError(data.status?.[0]?.msg || data?.message || 'Post not found');
         return;
       }
 
-      console.log(`All Posts: ${data}`);
-      setPosts(data);
+      setPost(data);
     } catch (err) {
-      console.log('in the catch');
       setError(err.message);
     }
   };
@@ -34,7 +37,92 @@ const Post = () => {
     getPostById();
   }, []);
 
-  return <div className={styles.container}></div>;
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <p className={styles.error}>{error}</p>
+      </div>
+    );
+  }
+
+  if (!post) {
+    return (
+      <div className={styles.container}>
+        <p className={styles.loading}>Loading adventure...</p>
+      </div>
+    );
+  }
+
+  return (
+    <main className={styles.container}>
+      <article className={styles.article}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>{post.title}</h1>
+
+          <div className={styles.meta}>
+            <span>by {post.user?.username}</span>
+
+            <span className={styles.dot}></span>
+
+            <span>{formatDate(post.createdAt)}</span>
+
+            {post.updatedAt && (
+              <>
+                <span className={styles.dot}></span>
+                <span className={styles.updated}>
+                  Updated {formatDate(post.updatedAt)}
+                </span>
+              </>
+            )}
+          </div>
+        </header>
+
+        <div className={styles.divider}></div>
+
+        <div className={styles.content}>
+          <p>{post.content}</p>
+        </div>
+      </article>
+
+      <section className={styles.commentsSection}>
+        <h2 className={styles.commentsTitle}>
+          {post.comments?.length || 0}{' '}
+          {(post.comments?.length || 0) === 1 ? 'Comment' : 'Comments'}
+        </h2>
+
+        <div className={styles.commentList}>
+          {post.comments?.map((comment) => (
+            <div key={comment.id} className={styles.comment}>
+              <div className={styles.commentMeta}>
+                <span className={styles.commentUser}>
+                  {comment.user?.username}
+                </span>
+
+                <span className={styles.dot}></span>
+
+                <span className={styles.commentDate}>
+                  {formatDate(comment.createdAt)}
+                </span>
+              </div>
+
+              <p className={styles.commentText}>{comment.text}</p>
+            </div>
+          ))}
+        </div>
+
+        <form className={styles.commentForm}>
+          <h3>Leave a comment</h3>
+
+          <textarea
+            rows="4"
+            placeholder="Share your thoughts or food tips..."
+          />
+
+          <button type="submit">Post Comment</button>
+        </form>
+      </section>
+    </main>
+  );
 };
 
 export { Post };

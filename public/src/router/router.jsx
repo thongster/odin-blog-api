@@ -4,6 +4,7 @@ import ErrorPage from '../pages/ErrorPage';
 import { Adventures } from '../pages/Adventures';
 import { About } from '../pages/About';
 import { Contact } from '../pages/Contact';
+import { Post } from '../pages/Post';
 
 const routes = [
   {
@@ -15,6 +16,7 @@ const routes = [
       { path: 'adventures', element: <Adventures /> },
       { path: 'about', element: <About /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'posts/:postId', element: <Post /> },
     ],
   },
 ];

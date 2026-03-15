@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './Adventures.module.css';
+import adventureHero from '../assets/adventureshero.jpg';
 
 const Adventures = () => {
   const [posts, setPosts] = useState([]);
@@ -39,6 +40,9 @@ const Adventures = () => {
   return (
     <main className={styles.container}>
       <header className={styles.hero}>
+        <div className={styles.heroImageWrapper}>
+          <img src={adventureHero} alt="Vietnam landscape" />
+        </div>
         <h1 className={styles.title}>All Food Adventures</h1>
         <p className={styles.subtitle}>
           Stories, meals, and discoveries from across Vietnam.

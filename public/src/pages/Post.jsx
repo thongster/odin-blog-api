@@ -8,6 +8,7 @@ const Post = () => {
   const [error, setError] = useState(null);
 
   const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+  const adminUrl = import.meta.env.VITE_ADMIN_LINK;
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString('en-US', {
@@ -114,9 +115,9 @@ const Post = () => {
         <div className={styles.commentCTA}>
           <p>Want to join the conversation or leave your own food tip?</p>
 
-          <NavLink to="/admin" className={styles.commentButton}>
+          <a href={baseUrl} className={styles.commentButton}>
             Go to Admin Panel
-          </NavLink>
+          </a>
         </div>
       </section>
     </main>

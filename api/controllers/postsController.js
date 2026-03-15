@@ -12,6 +12,21 @@ const getAllPosts = async (req, res) => {
   return res.status(200).json(allPosts);
 };
 
+const getAllPublishedPosts = async (req, res) => {
+  const allPosts = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+    include: { comments: true, user: true },
+  });
+
+  if (!allPosts) {
+    return res.status(404).json({ message: "All posts not found" });
+  }
+
+  return res.status(200).json(allPosts);
+};
+
 const getPostById = async (req, res) => {
   const post = await prisma.post.findUnique({
     where: {
@@ -101,4 +116,11 @@ const deletePost = async (req, res) => {
   return res.status(204).send();
 };
 
-export { getAllPosts, getPostById, createPost, updatePost, deletePost };
+export {
+  getAllPosts,
+  getAllPublishedPosts,
+  getPostById,
+  createPost,
+  updatePost,
+  deletePost,
+};

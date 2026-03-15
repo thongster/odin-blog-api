@@ -1,0 +1,169 @@
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ---------- ARTICLE ---------- */
+
+.article {
+  margin-bottom: 1rem;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+  color: #1a1a1a;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.updated {
+  font-style: italic;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ---------- DIVIDER ---------- */
+
+.divider {
+  height: 1px;
+  background: #eaeaea;
+  margin: 2rem 0;
+}
+
+/* ---------- CONTENT ---------- */
+
+.content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.content p {
+  margin-bottom: 1.4rem;
+}
+
+/* ---------- COMMENTS ---------- */
+
+.commentsSection {
+  border-top: 1px solid #eaeaea;
+  padding-top: 2rem;
+}
+
+.commentsTitle {
+  font-size: 1.4rem;
+  color: #222;
+}
+
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.comment {
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.commentMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: #777;
+}
+
+.commentUser {
+  font-weight: 600;
+  color: #333;
+}
+
+.commentDate {
+  font-style: italic;
+}
+
+.commentText {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* ---------- COMMENT FORM ---------- */
+
+.commentForm {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.commentForm h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.commentForm textarea {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 90px;
+}
+
+.commentForm textarea:focus {
+  outline: none;
+  border-color: #c94f3d;
+}
+
+.commentForm button {
+  align-self: flex-start;
+  padding: 0.45rem 1rem;
+  background: #c94f3d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.commentForm button:hover {
+  background: #a63f30;
+}
+
+/* ---------- STATES ---------- */
+
+.error {
+  text-align: center;
+  color: #c94f3d;
+  font-size: 1rem;
+}
+
+.loading {
+  text-align: center;
+  color: #777;
+}

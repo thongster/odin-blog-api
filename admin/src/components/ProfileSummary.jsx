@@ -1,6 +1,10 @@
-import styles from './ProfileSummary.module.css';
+import styles from "./ProfileSummary.module.css";
 
-const ProfileSummary = ({ user }) => {
+const ProfileSummary = ({ user, posts }) => {
+  const totalComments = posts.reduce(
+    (acc, post) => acc + post.comments.length,
+    0,
+  );
   return (
     <div className={styles.card}>
       <div className={styles.who}>
@@ -21,8 +25,8 @@ const ProfileSummary = ({ user }) => {
 
       <div className={styles.info}>
         <span>Activity</span>
-        <p>Posts:</p>
-        <p>Comments:</p>
+        <p>Posts: {posts.length}</p>
+        <p>Comments: {totalComments}</p>
       </div>
     </div>
   );

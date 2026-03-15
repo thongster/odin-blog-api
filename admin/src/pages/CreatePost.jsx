@@ -1,21 +1,21 @@
-import styles from './CreatePost.module.css';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import styles from "./CreatePost.module.css";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const CreatePost = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
   const [error, setError] = useState(null);
   const { token, logout } = useAuth();
   const navigate = useNavigate();
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = "http://localhost:3000";
 
   // go to login if no token
   useEffect(() => {
     if (!token) {
-      navigate('/');
+      navigate("/");
     }
   }, [token]);
 
@@ -24,9 +24,9 @@ const CreatePost = () => {
 
     try {
       const response = await fetch(`${baseUrl}/posts`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ title, content, published }),
@@ -41,13 +41,13 @@ const CreatePost = () => {
 
       if (!response.ok) {
         throw new Error(
-          data.status?.[0]?.msg || data?.message || 'Failed to create post',
+          data.status?.[0]?.msg || data?.message || "Failed to create post",
         );
       }
 
       // navigate to home page
-      navigate('/');
-      console.log('Post successfully created');
+      navigate("/");
+      console.log("Post successfully created");
     } catch (err) {
       setError(err.message);
     }
@@ -94,7 +94,7 @@ const CreatePost = () => {
           </div>
 
           <button type="submit" className={styles.button}>
-            {published ? 'Create Post' : 'Save Draft'}
+            {published ? "Create Post" : "Save Draft"}
           </button>
         </form>
       </div>

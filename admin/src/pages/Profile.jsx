@@ -1,15 +1,15 @@
-import styles from './Profile.module.css';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { ProfileSummary } from '../components/ProfileSummary';
-import { PostCard } from '../components/PostCard';
-import { NewPostBtn } from '../components/NewPostBtn';
+import styles from "./Profile.module.css";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { ProfileSummary } from "../components/ProfileSummary";
+import { PostCard } from "../components/PostCard";
+import { NewPostBtn } from "../components/NewPostBtn";
 
 const Profile = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = "http://localhost:3000";
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ const Profile = () => {
   // if no token in localstorage, redirect to home
   useEffect(() => {
     if (!token) {
-      navigate('/', { replace: true });
+      navigate("/", { replace: true });
     }
   }, [token, navigate]);
 
@@ -25,7 +25,7 @@ const Profile = () => {
   const getProfile = async () => {
     try {
       const response = await fetch(`${baseUrl}/profile`, {
-        method: 'GET',
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,14 +33,14 @@ const Profile = () => {
 
       // logout if token expired
       if (response.status === 401) {
-        console.log('Error 401');
+        console.log("Error 401");
         logout();
       }
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.status?.[0]?.msg || data?.message || 'Profile not found');
+        setError(data.status?.[0]?.msg || data?.message || "Profile not found");
         return;
       }
 
@@ -54,7 +54,7 @@ const Profile = () => {
   const getPosts = async () => {
     try {
       const response = await fetch(`${baseUrl}/profile/postswithcomments`, {
-        method: 'GET',
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,7 +68,7 @@ const Profile = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.status?.[0]?.msg || data?.message || 'Posts not found');
+        setError(data.status?.[0]?.msg || data?.message || "Posts not found");
         return;
       }
 
@@ -90,7 +90,11 @@ const Profile = () => {
   return (
     <div className={styles.profilePage}>
       <div className={styles.sidebar}>
-        {user ? <ProfileSummary user={user} /> : <p>Loading profile...</p>}
+        {user ? (
+          <ProfileSummary user={user} posts={posts} />
+        ) : (
+          <p>Loading profile...</p>
+        )}
       </div>
 
       <div className={styles.mainContent}>

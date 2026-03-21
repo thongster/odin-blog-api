@@ -1,15 +1,14 @@
-/* PAGE CONTAINER */
+/* ---------- PAGE ---------- */
 
 .container {
-  max-width: 850px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* HERO HEADER */
+/* ---------- HERO ---------- */
 
 .hero {
-  text-align: center;
   margin-bottom: 3rem;
 }
 
@@ -17,7 +16,8 @@
   width: 100%;
   aspect-ratio: 3 / 1;
   overflow: hidden;
-  margin-bottom: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
 }
 
 .heroImageWrapper img {
@@ -26,8 +26,12 @@
   object-fit: cover;
 }
 
+.heroContent {
+  text-align: center;
+}
+
 .title {
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(2rem, 4vw, 2.6rem);
   margin-bottom: 0.5rem;
 }
 
@@ -36,89 +40,112 @@
   font-size: 1rem;
 }
 
-/* POSTS LIST */
+/* ---------- POSTS GRID ---------- */
 
 .posts {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 2rem;
 }
 
-/* POST CARD */
+/* ---------- CARD (HORIZONTAL) ---------- */
 
 .postCard {
-  display: block;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
-
-  text-decoration: none;
-  color: inherit;
-
-  transition: transform 0.15s ease;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
 }
 
-.postCard:hover {
-  transform: translateX(6px);
+/* ---------- VISUAL ---------- */
+
+.visual {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #f6d365, #fda085);
+
+  transition: transform 0.25s ease;
 }
 
-/* META TOP (region + dates) */
+.postCard:hover .visual {
+  transform: scale(1.03);
+}
 
-.metaTop {
+/* ---------- CONTENT ---------- */
+
+.cardContent {
   display: flex;
-  align-items: center;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* META BOTTOM (author + comments) */
+/* ---------- META ---------- */
 
+.metaTop,
 .metaBottom {
   display: flex;
   align-items: center;
   font-size: 0.85rem;
-  opacity: 0.75;
-  margin-bottom: 0.4rem;
+  color: #777;
 }
-
-/* REGION TAG */
-
-.region {
-  font-weight: 600;
-  color: #c0392b;
-}
-
-/* UPDATED TEXT */
 
 .updated {
   font-style: italic;
 }
 
-/* DOT SEPARATOR */
+/* ---------- DOT ---------- */
 
 .dot {
   width: 4px;
   height: 4px;
-  background: #999;
+  background: #bbb;
   border-radius: 50%;
   margin: 0 0.5rem;
 }
 
-/* POST TITLE */
+/* ---------- TITLE ---------- */
+
+.titleLink {
+  text-decoration: none;
+  color: inherit;
+}
 
 .postTitle {
   font-size: 1.4rem;
-  margin-bottom: 0.4rem;
+  margin: 0.4rem 0;
+  line-height: 1.4;
+  transition: color 0.2s ease;
 }
 
-/* READ MORE LINK */
+.postTitle:hover {
+  color: #c0392b;
+}
+
+/* ---------- EXCERPT ---------- */
+
+.excerpt {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 0.6rem;
+}
+
+/* ---------- READ MORE ---------- */
 
 .readMore {
   font-size: 0.9rem;
   color: #c0392b;
+  text-decoration: none;
+  align-self: flex-start;
 }
 
-/* ERROR MESSAGE */
+.readMore:hover {
+  text-decoration: underline;
+}
+
+/* ---------- ERROR ---------- */
 
 .error {
   text-align: center;
@@ -127,10 +154,14 @@
   font-weight: 500;
 }
 
-/* LOADING STATE */
+/* ---------- RESPONSIVE ---------- */
 
-.loading {
-  text-align: center;
-  margin-top: 2rem;
-  opacity: 0.6;
+@media (max-width: 768px) {
+  .postCard {
+    grid-template-columns: 1fr;
+  }
+
+  .visual {
+    height: 180px;
+  }
 }

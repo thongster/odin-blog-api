@@ -51,7 +51,7 @@
 
 .postCard {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 1rem 1fr;
   gap: 1.5rem;
   align-items: stretch;
 }

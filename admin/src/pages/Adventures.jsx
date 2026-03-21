@@ -6,19 +6,21 @@ import adventureHero from "../assets/adventureshero.png";
 const Adventures = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [commentInputs, setCommentInputs] = useState({});
+
   const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
-      month: "long",
+      month: "short",
       day: "numeric",
     });
   };
 
   const getPosts = async () => {
     try {
-      const response = await fetch(`${baseUrl}/posts`);
+      const response = await fetch(`${baseUrl}/published`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -26,7 +28,6 @@ const Adventures = () => {
         return;
       }
 
-      console.log("All Posts:", data);
       setPosts(data);
     } catch (err) {
       setError(err.message);
@@ -37,12 +38,48 @@ const Adventures = () => {
     getPosts();
   }, []);
 
+  const handleCommentChange = (postId, value) => {
+    setCommentInputs((prev) => ({
+      ...prev,
+      [postId]: value,
+    }));
+  };
+
+  const handleAddComment = async (postId) => {
+    const text = commentInputs[postId];
+    if (!text) return;
+
+    try {
+      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add comment");
+      }
+
+      setCommentInputs((prev) => ({
+        ...prev,
+        [postId]: "",
+      }));
+
+      getPosts();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <main className={styles.container}>
       <header className={styles.hero}>
         <div className={styles.heroImageWrapper}>
           <img src={adventureHero} alt="Vietnam landscape" />
         </div>
+
         <h1 className={styles.title}>All Food Adventures</h1>
         <p className={styles.subtitle}>
           Stories, meals, and discoveries from across Vietnam.
@@ -53,15 +90,8 @@ const Adventures = () => {
 
       <section className={styles.posts}>
         {posts.map((post) => (
-          <NavLink
-            to={`/posts/${post.id}`}
-            key={post.id}
-            className={styles.postCard}
-          >
+          <div key={post.id} className={styles.postCard}>
             <div className={styles.metaTop}>
-              <span className={styles.region}>{post.region}</span>
-
-              <span className={styles.dot}></span>
               <span>{formatDate(post.createdAt)}</span>
 
               {post.updatedAt && (
@@ -74,10 +104,12 @@ const Adventures = () => {
               )}
             </div>
 
-            <h2 className={styles.postTitle}>{post.title}</h2>
+            <NavLink to={`/posts/${post.id}`} className={styles.titleLink}>
+              <h2 className={styles.postTitle}>{post.title}</h2>
+            </NavLink>
 
             <div className={styles.metaBottom}>
-              <span>by @{post.user.username}</span>
+              <span>by @{post.user?.username}</span>
 
               <span className={styles.dot}></span>
 
@@ -87,8 +119,16 @@ const Adventures = () => {
               </span>
             </div>
 
-            <span className={styles.readMore}>Read Adventure →</span>
-          </NavLink>
+            <div className={styles.commentBox}>
+              <textarea
+                placeholder="Write a quick comment..."
+                value={commentInputs[post.id] || ""}
+                onChange={(e) => handleCommentChange(post.id, e.target.value)}
+              />
+
+              <button onClick={() => handleAddComment(post.id)}>Comment</button>
+            </div>
+          </div>
         ))}
       </section>
     </main>

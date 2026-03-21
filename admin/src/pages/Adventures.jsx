@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Adventures.module.css";
-import adventureHero from "../assets/adventureshero.jpg";
+import adventureHero from "../assets/adventureshero.png";
 
 const Adventures = () => {
   const [posts, setPosts] = useState([]);

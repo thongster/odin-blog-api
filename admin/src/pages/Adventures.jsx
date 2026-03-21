@@ -6,7 +6,6 @@ import adventureHero from "../assets/adventureshero.png";
 const Adventures = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  const [commentInputs, setCommentInputs] = useState({});
 
   const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -20,7 +19,7 @@ const Adventures = () => {
 
   const getPosts = async () => {
     try {
-      const response = await fetch(`${baseUrl}/published`);
+      const response = await fetch(`${baseUrl}/posts/published`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -38,97 +37,68 @@ const Adventures = () => {
     getPosts();
   }, []);
 
-  const handleCommentChange = (postId, value) => {
-    setCommentInputs((prev) => ({
-      ...prev,
-      [postId]: value,
-    }));
-  };
-
-  const handleAddComment = async (postId) => {
-    const text = commentInputs[postId];
-    if (!text) return;
-
-    try {
-      const response = await fetch(`${baseUrl}/posts/${postId}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to add comment");
-      }
-
-      setCommentInputs((prev) => ({
-        ...prev,
-        [postId]: "",
-      }));
-
-      getPosts();
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
   return (
     <main className={styles.container}>
+      {/* HERO */}
       <header className={styles.hero}>
         <div className={styles.heroImageWrapper}>
           <img src={adventureHero} alt="Vietnam landscape" />
         </div>
 
-        <h1 className={styles.title}>All Food Adventures</h1>
-        <p className={styles.subtitle}>
-          Stories, meals, and discoveries from across Vietnam.
-        </p>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>All Food Adventures</h1>
+          <p className={styles.subtitle}>
+            Stories, meals, and discoveries from across Vietnam.
+          </p>
+        </div>
       </header>
 
       {error && <p className={styles.error}>{error}</p>}
 
+      {/* POSTS */}
       <section className={styles.posts}>
         {posts.map((post) => (
-          <div key={post.id} className={styles.postCard}>
-            <div className={styles.metaTop}>
-              <span>{formatDate(post.createdAt)}</span>
+          <article key={post.id} className={styles.postCard}>
+            {/* VISUAL BLOCK */}
+            <div className={styles.visual}></div>
 
-              {post.updatedAt && (
-                <>
-                  <span className={styles.dot}></span>
-                  <span className={styles.updated}>
-                    Updated {formatDate(post.updatedAt)}
-                  </span>
-                </>
-              )}
+            {/* CONTENT */}
+            <div className={styles.cardContent}>
+              <div className={styles.metaTop}>
+                <span>{formatDate(post.createdAt)}</span>
+
+                {post.updatedAt && (
+                  <>
+                    <span className={styles.dot}></span>
+                    <span className={styles.updated}>
+                      Updated {formatDate(post.updatedAt)}
+                    </span>
+                  </>
+                )}
+              </div>
+
+              <NavLink to={`/posts/${post.id}`} className={styles.titleLink}>
+                <h2 className={styles.postTitle}>{post.title}</h2>
+              </NavLink>
+
+              <p className={styles.excerpt}>{post.content.slice(0, 120)}...</p>
+
+              <div className={styles.metaBottom}>
+                <span>by @{post.user?.username}</span>
+
+                <span className={styles.dot}></span>
+
+                <span>
+                  {post.comments?.length || 0}{" "}
+                  {(post.comments?.length || 0) === 1 ? "comment" : "comments"}
+                </span>
+              </div>
+
+              <NavLink to={`/posts/${post.id}`} className={styles.readMore}>
+                Read Adventure →
+              </NavLink>
             </div>
-
-            <NavLink to={`/posts/${post.id}`} className={styles.titleLink}>
-              <h2 className={styles.postTitle}>{post.title}</h2>
-            </NavLink>
-
-            <div className={styles.metaBottom}>
-              <span>by @{post.user?.username}</span>
-
-              <span className={styles.dot}></span>
-
-              <span>
-                {post.comments?.length || 0}{" "}
-                {(post.comments?.length || 0) === 1 ? "comment" : "comments"}
-              </span>
-            </div>
-
-            <div className={styles.commentBox}>
-              <textarea
-                placeholder="Write a quick comment..."
-                value={commentInputs[post.id] || ""}
-                onChange={(e) => handleCommentChange(post.id, e.target.value)}
-              />
-
-              <button onClick={() => handleAddComment(post.id)}>Comment</button>
-            </div>
-          </div>
+          </article>
         ))}
       </section>
     </main>

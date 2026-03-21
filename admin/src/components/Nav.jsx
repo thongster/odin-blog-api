@@ -1,7 +1,7 @@
-import styles from './Nav.module.css';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import styles from "./Nav.module.css";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Nav = () => {
   const { token, logout } = useAuth();
@@ -9,7 +9,7 @@ const Nav = () => {
 
   const handleSignOut = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -24,6 +24,15 @@ const Nav = () => {
 
       {token ? (
         <>
+          <NavLink
+            to="/adventures"
+            end
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.link
+            }
+          >
+            Adventures
+          </NavLink>
           <NavLink
             to="/profile"
             end
